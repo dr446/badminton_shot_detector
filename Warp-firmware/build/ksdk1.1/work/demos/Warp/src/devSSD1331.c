@@ -3,6 +3,8 @@
 #include "fsl_spi_master_driver.h"
 #include "fsl_port_hal.h"
 
+#include "mbed_ssd1331.h"
+
 #include "SEGGER_RTT.h"
 #include "gpio_pins.h"
 #include "warp.h"
@@ -10,6 +12,8 @@
 
 volatile uint8_t	inBuffer[32];
 volatile uint8_t	payloadBytes[32];
+
+
 
 
 /*
@@ -24,8 +28,8 @@ enum
 	kSSD1331PinRST		= GPIO_MAKE_PIN(HW_GPIOB, 10),
 };
 
-static int
-writeCommand(uint8_t commandByte)
+
+int writeCommand(uint8_t commandByte)
 {
 	spi_status_t status;
 
@@ -35,7 +39,7 @@ writeCommand(uint8_t commandByte)
 	 *	Make sure there is a high-to-low transition by first driving high, delay, then drive low.
 	 */
 	GPIO_DRV_SetPinOutput(kSSD1331PinCSn);
-	OSA_TimeDelay(10);
+	//OSA_TimeDelay(10);
 	GPIO_DRV_ClearPinOutput(kSSD1331PinCSn);
 
 	/*
@@ -58,6 +62,75 @@ writeCommand(uint8_t commandByte)
 
 	return status;
 }
+
+
+int writeCommand_buf(uint8_t* commandByteBuf, uint8_t len)
+{
+	spi_status_t status;
+
+	/*
+	 *	Drive /CS low.
+	 *
+	 *	Make sure there is a high-to-low transition by first driving high, delay, then drive low.
+	 */
+	GPIO_DRV_SetPinOutput(kSSD1331PinCSn);
+	GPIO_DRV_ClearPinOutput(kSSD1331PinCSn);
+
+	/*
+	 *	Drive DC low (command).
+	 */
+	GPIO_DRV_ClearPinOutput(kSSD1331PinDC);
+
+	status = SPI_DRV_MasterTransferBlocking(0	                                        /* master instance */,
+					                        NULL		                                /* spi_master_user_config_t */,
+					                        (const uint8_t * restrict)commandByteBuf,
+					                        (uint8_t * restrict)&inBuffer[0],
+					                        len		                                    /* transfer size */,
+					                        1000		                                /* timeout in microseconds (unlike I2C which is ms) */
+					                        );
+	/*
+	 *	Drive /CS high
+	 */
+	GPIO_DRV_SetPinOutput(kSSD1331PinCSn);
+
+	return status;
+}
+
+
+void draw_result(char* shot, uint8_t len, uint8_t confidence)
+{
+
+//0 = smash
+//1 = clear
+//2 = drop
+//3 = lift
+//4 = drive
+    uint8_t i;
+    uint8_t x_cursor = 0;
+    uint8_t y_cursor = 10;
+    int dig[3];
+    dig[0] = confidence/10 + 48;
+    dig[1] = confidence%10 + 48;
+    dig[2] = '%';
+    
+    for( i=0; i<len; i++) {
+        PutChar(x_cursor, y_cursor, (int)*(shot + i));
+        x_cursor += X_width;
+    } 
+    
+    x_cursor = 0;
+    y_cursor = 45;
+    
+    i = 0;
+    
+    for( i=0; i<3; i++) {
+        PutChar(x_cursor, y_cursor, dig[i]);
+        x_cursor += X_width;
+    } 
+
+}
+
+
 
 
 
@@ -166,6 +239,20 @@ devSSD1331init(void)
     writeCommand(kSSD1331CommandMASTERCURRENT);	// 0x87
 	writeCommand(14);     
     
+    
+    
+    //attempt to use the mbed library to write some text
+        
+    SetFontSize(HIGH); // set tall font
+    foreground(toRGB(0,255,0)); // set text colour
+    
+    char *shot_result = "smash\n\n";
+    draw_result(shot_result, 7, 50);
+
+    //Fill_Screen(toRGB(255,0,0)); //red
+    //line(1,1,1,1,toRGB(0,255,0));
+    
+    /*
     //fill screen green
     writeCommand(kSSD1331CommandDRAWRECT); //Evoke Draw Rectangle command
     writeCommand(00);                      //set starting column
@@ -178,7 +265,7 @@ devSSD1331init(void)
     writeCommand(00);                      //set fill colour A (red)
     writeCommand(0xFF);                    //set fill colour B (green)
     writeCommand(00);                      //set fill colour C (blue)
-	
+	*/
 	
 	SEGGER_RTT_WriteString(0, "\r\n\tDone with rectangle...\n");
 
