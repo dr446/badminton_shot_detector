@@ -26,6 +26,28 @@ CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/buil
 CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT_printf.c.obj: /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT_Conf.h
 CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT_printf.c.obj: /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT_printf.c
 
+CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj: ../../../../boards/Warp/gpio_pins.h
+CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj: ../../../../platform/CMSIS/Include/core_cm0plus.h
+CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj: ../../../../platform/CMSIS/Include/core_cmFunc.h
+CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj: ../../../../platform/CMSIS/Include/core_cmInstr.h
+CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj: ../../../../platform/CMSIS/Include/device/MKL03Z4/MKL03Z4.h
+CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj: ../../../../platform/CMSIS/Include/device/MKL03Z4/MKL03Z4_features.h
+CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj: ../../../../platform/CMSIS/Include/device/MKL03Z4/MKL03Z4_registers.h
+CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj: ../../../../platform/CMSIS/Include/device/MKL03Z4/fsl_bitaccess.h
+CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj: ../../../../platform/CMSIS/Include/device/fsl_device_registers.h
+CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj: ../../../../platform/drivers/inc/fsl_adc16_driver.h
+CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj: ../../../../platform/drivers/inc/fsl_gpio_driver.h
+CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj: ../../../../platform/hal/inc/fsl_adc16_hal.h
+CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj: ../../../../platform/hal/inc/fsl_gpio_hal.h
+CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj: ../../../../platform/hal/inc/fsl_pmc_hal.h
+CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj: ../../../../platform/hal/inc/fsl_port_hal.h
+CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj: ../../../../platform/hal/inc/fsl_smc_hal.h
+CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj: ../../../../platform/startup/MKL03Z4/system_MKL03Z4.h
+CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj: /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT.h
+CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj: /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT_Conf.h
+CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj: /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c
+CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj: /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.h
+
 CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.c.obj: ../../../../boards/Warp/gpio_pins.h
 CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.c.obj: ../../../../platform/CMSIS/Include/core_cm0plus.h
 CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.c.obj: ../../../../platform/CMSIS/Include/core_cmFunc.h
@@ -331,6 +353,7 @@ CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/buil
 CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/warp-kl03-ksdk1.1-boot.c.obj: ../../../../platform/utilities/inc/fsl_misc_utilities.h
 CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/warp-kl03-ksdk1.1-boot.c.obj: /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT.h
 CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/warp-kl03-ksdk1.1-boot.c.obj: /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT_Conf.h
+CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/warp-kl03-ksdk1.1-boot.c.obj: /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.h
 CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/warp-kl03-ksdk1.1-boot.c.obj: /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.h
 CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/warp-kl03-ksdk1.1-boot.c.obj: /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.h
 CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/warp-kl03-ksdk1.1-boot.c.obj: /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.h

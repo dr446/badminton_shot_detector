@@ -60,6 +60,7 @@
 #include "devINA219.h"
 #include "devMPU6050.h"
 #include "devINMP401.h"
+#include "adc_low_power.h"
 
 
 #define					kWarpConstantStringI2cFailure		"\rI2C failed, reg 0x%02x, code %d\n"
@@ -1004,15 +1005,15 @@ main(void)
 	 *	Toggle LED3 (kWarpPinSI4705_nRST)
 	 */
 	GPIO_DRV_SetPinOutput(kWarpPinSI4705_nRST);
-	OSA_TimeDelay(500);
+	//OSA_TimeDelay(500);
 	GPIO_DRV_ClearPinOutput(kWarpPinSI4705_nRST);
-	OSA_TimeDelay(500);
+	//OSA_TimeDelay(500);
 	GPIO_DRV_SetPinOutput(kWarpPinSI4705_nRST);
-	OSA_TimeDelay(500);
+	//OSA_TimeDelay(500);
 	GPIO_DRV_ClearPinOutput(kWarpPinSI4705_nRST);
-	OSA_TimeDelay(500);
+	//OSA_TimeDelay(500);
 	GPIO_DRV_SetPinOutput(kWarpPinSI4705_nRST);
-	OSA_TimeDelay(500);
+	//OSA_TimeDelay(500);
 	GPIO_DRV_ClearPinOutput(kWarpPinSI4705_nRST);
 
 
@@ -1028,49 +1029,17 @@ main(void)
 
 
 
-    
-
-	/*
-	 *	Initialization: Devices hanging off SPI
-	 */
-
-
-
-
-	/*
-	 *	Power down all sensors:
-	 */
-	//activateAllLowPowerSensorModes();
-
-
-
-
-	/*
-	 *	Make sure SCALED_SENSOR_SUPPLY is off
-	 */
+	
 	disableSssupply();
 
 
-	/*
-	 *	TODO: initialize the kWarpPinKL03_VDD_ADC, write routines to read the VDD and temperature
-	 */
-
-    //GPIO_DRV_SetPinOutput(kWarpPinI2C0_SDA);
-    //GPIO_DRV_SetPinOutput(kWarpPinI2C0_SCL);
-	/*
-	 *	Wait for supply and pull-ups to settle.
-	 */
-	
     enableI2Cpins(5);
     
     
     //initialise OLED display
-    devSSD1331init();
+    //devSSD1331init();
     
 
-    
-    OSA_TimeDelay(1000);
-    
     for (int i =0; i <2; i++){
         print_accelerations();
         //OSA_TimeDelay(10);
@@ -1079,6 +1048,8 @@ main(void)
         
     //init ADC microphone
     devINMP401init();
+    
+    //init_temp();
     
 	return 0;
 }

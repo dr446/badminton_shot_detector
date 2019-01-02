@@ -1,3 +1,4 @@
+
 #include <stdint.h>
 
 
@@ -19,7 +20,8 @@
 //microphone connected to PTB0, which is ADC0_SE9, channel: AD9, 01001
 
 #define ADC_0                   (0U)
-#define CHANNEL_0               (9U)
+#define CHANNEL_0               (0U)
+#define CHANNEL_MIC             (9U)
 
 /*Required Procedures: (Obtained from page 416 of reference manual: https://www.nxp.com/docs/en/reference-manual/KL03P24M48SF0RM.pdf
 1) Calibrate ADC
@@ -30,15 +32,19 @@
 */
 
 
-enum
-{
-	kSSD1331PinAO		= GPIO_MAKE_PIN(HW_GPIOB, 0)
-};
 
 
 int32_t init_adc(uint32_t instance)
 {
-#if FSL_FEATURE_ADC16_HAS_CALIBRATION
+
+    adc16_calibration_param_t auto_params;
+    
+    
+    ADC16_DRV_GetAutoCalibrationParam(instance, &auto_params);
+    
+    SEGGER_RTT_printf(0, "\rautores = %d\n", auto_params.plusSideGainValue);  
+    
+    #if FSL_FEATURE_ADC16_HAS_CALIBRATION
     adc16_calibration_param_t adcCalibraitionParam;
 #endif
     adc16_user_config_t adcUserConfig;
@@ -55,26 +61,31 @@ int32_t init_adc(uint32_t instance)
     // normal convert speed, VREFH/L as reference,
     // disable continuous convert mode.
     ADC16_DRV_StructInitUserConfigDefault(&adcUserConfig);
-    adcUserConfig.intEnable = true;
-    adcUserConfig.resolutionMode = 6U;
+    adcUserConfig.intEnable = false;
+    adcUserConfig.resolutionMode = 0U;
     adcUserConfig.hwTriggerEnable = false;
     adcUserConfig.continuousConvEnable = true;
     adcUserConfig.clkSrcMode = kAdcClkSrcOfAsynClk;
     ADC16_DRV_Init(instance, &adcUserConfig);
 
     // Install Callback function into ISR
-    //ADC_TEST_InstallCallback(instance, CHANNEL_0, ADC1IRQHandler);
 
-    adcChnConfig.chnNum = CHANNEL_0;
-    adcChnConfig.diffEnable = false;
-    adcChnConfig.intEnable = true;
-    adcChnConfig.chnMux = kAdcChnMuxOfA;
 
+    adcChnConfig.chnNum = CHANNEL_MIC;
+    adcChnConfig.diffEnable = true;
+    adcChnConfig.intEnable = false;
+    adcChnConfig.chnMux = kAdcChnMuxOfB;
+    
+    
+    
     // Configure channel0
     ADC16_DRV_ConfigConvChn(instance, CHANNEL_0, &adcChnConfig);
-
+    
+    
     return 0;
 }
+
+
 
 
 
@@ -86,10 +97,14 @@ int devINMP401init(void)
    //set up trigger source
    //init_trigger_source(ADC_0); 
     
-   while(1){
+    uint8_t flag = ADC16_DRV_GetChnFlag(ADC_0, CHANNEL_MIC, 0);
+    SEGGER_RTT_printf(0, "\rflag = %d\n",  flag);  
+   while (1) {
       int mic_output = ADC16_DRV_GetConvValueRAW(ADC_0, CHANNEL_0);
+     
+     
       SEGGER_RTT_printf(0, "\rmic output = %d, %d\n", mic_output, err);  
-       OSA_TimeDelay(100);
+       OSA_TimeDelay(50);
    }
 }
 

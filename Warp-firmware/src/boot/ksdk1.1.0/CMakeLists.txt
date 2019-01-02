@@ -97,6 +97,7 @@ ADD_EXECUTABLE(Warp
     "${ProjDirPath}/../../src/devINA219.c"
     "${ProjDirPath}/../../src/devMPU6050.c"
     "${ProjDirPath}/../../src/devINMP401.c"
+    "${ProjDirPath}/../../src/adc_low_power.c"
     "${ProjDirPath}/../../src/SEGGER_RTT.c"
     "${ProjDirPath}/../../src/SEGGER_RTT_printf.c"
     "${ProjDirPath}/../../../../platform/drivers/src/i2c/fsl_i2c_irq.c"

@@ -204,6 +204,33 @@ home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos
 	$(MAKE) -f CMakeFiles/Warp.dir/build.make CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT_printf.c.s
 .PHONY : home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT_printf.c.s
 
+home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.obj: home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj
+
+.PHONY : home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.obj
+
+# target to build an object file
+home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj:
+	$(MAKE) -f CMakeFiles/Warp.dir/build.make CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj
+.PHONY : home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj
+
+home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.i: home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.i
+
+.PHONY : home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.i
+
+# target to preprocess a source file
+home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.i:
+	$(MAKE) -f CMakeFiles/Warp.dir/build.make CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.i
+.PHONY : home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.i
+
+home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.s: home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.s
+
+.PHONY : home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.s
+
+# target to generate assembly for a file
+home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.s:
+	$(MAKE) -f CMakeFiles/Warp.dir/build.make CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.s
+.PHONY : home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.s
+
 home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.obj: home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.c.obj
 
 .PHONY : home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.obj
@@ -636,6 +663,9 @@ help:
 	@echo "... home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT_printf.obj"
 	@echo "... home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT_printf.i"
 	@echo "... home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT_printf.s"
+	@echo "... home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.obj"
+	@echo "... home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.i"
+	@echo "... home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.s"
 	@echo "... home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.obj"
 	@echo "... home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.i"
 	@echo "... home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.s"

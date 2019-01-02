@@ -11,6 +11,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.c.obj"
   "CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMPU6050.c.obj"
   "CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINMP401.c.obj"
+  "CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj"
   "CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT.c.obj"
   "CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT_printf.c.obj"
   "CMakeFiles/Warp.dir/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/platform/drivers/src/i2c/fsl_i2c_irq.c.obj"

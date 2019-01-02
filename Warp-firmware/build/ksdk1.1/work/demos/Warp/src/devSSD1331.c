@@ -100,11 +100,6 @@ int writeCommand_buf(uint8_t* commandByteBuf, uint8_t len)
 void draw_result(char* shot, uint8_t len, uint8_t confidence)
 {
 
-//0 = smash
-//1 = clear
-//2 = drop
-//3 = lift
-//4 = drive
     uint8_t i;
     uint8_t x_cursor = 0;
     uint8_t y_cursor = 10;
@@ -248,28 +243,6 @@ devSSD1331init(void)
     
     char *shot_result = "smash\n\n";
     draw_result(shot_result, 7, 50);
-
-    //Fill_Screen(toRGB(255,0,0)); //red
-    //line(1,1,1,1,toRGB(0,255,0));
-    
-    /*
-    //fill screen green
-    writeCommand(kSSD1331CommandDRAWRECT); //Evoke Draw Rectangle command
-    writeCommand(00);                      //set starting column
-    writeCommand(00);                      //set starting row
-    writeCommand(95);                      //set finishing column   
-    writeCommand(63);                      //set finishing row
-    writeCommand(00);                      //set outline colour A (red)
-    writeCommand(0xFF);                    //set outline colour B (green)
-    writeCommand(00);                      //set outline colour C (blue)
-    writeCommand(00);                      //set fill colour A (red)
-    writeCommand(0xFF);                    //set fill colour B (green)
-    writeCommand(00);                      //set fill colour C (blue)
-	*/
 	
-	SEGGER_RTT_WriteString(0, "\r\n\tDone with rectangle...\n");
-
-
-
 	return 0;
 }

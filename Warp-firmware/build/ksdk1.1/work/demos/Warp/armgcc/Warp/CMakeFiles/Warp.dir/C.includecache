@@ -832,6 +832,32 @@ stdlib.h
 stdarg.h
 -
 
+/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c
+stdlib.h
+-
+assert.h
+-
+string.h
+-
+stdio.h
+-
+adc_low_power.h
+/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.h
+fsl_smc_hal.h
+/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/fsl_smc_hal.h
+fsl_pmc_hal.h
+/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/fsl_pmc_hal.h
+fsl_adc16_driver.h
+/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/fsl_adc16_driver.h
+SEGGER_RTT.h
+/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT.h
+gpio_pins.h
+/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/gpio_pins.h
+
+/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.h
+stdint.h
+-
+
 /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.c
 stdlib.h
 -
@@ -1093,6 +1119,8 @@ devMPU6050.h
 /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMPU6050.h
 devINMP401.h
 /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINMP401.h
+adc_low_power.h
+/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.h
 
 /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/warp-kl03-ksdk1.1-powermodes.c
 stdint.h
