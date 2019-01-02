@@ -62,7 +62,7 @@ int32_t init_adc(uint32_t instance)
     // disable continuous convert mode.
     ADC16_DRV_StructInitUserConfigDefault(&adcUserConfig);
     adcUserConfig.intEnable = false;
-    adcUserConfig.resolutionMode = 0U;
+    adcUserConfig.resolutionMode = 1U;
     adcUserConfig.hwTriggerEnable = false;
     adcUserConfig.continuousConvEnable = true;
     adcUserConfig.clkSrcMode = kAdcClkSrcOfAsynClk;

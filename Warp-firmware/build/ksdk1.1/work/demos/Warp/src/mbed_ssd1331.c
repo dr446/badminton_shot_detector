@@ -142,7 +142,8 @@ void PutChar(uint8_t column,uint8_t row, int value)
                 for(j=Y_height-1; j>=0; j--) {
                     for (k=0; k<lpy; k++) {
                         //pixel(char_x+(i*lpx)+l, char_y+(((j+1)*lpy)-1)-k,  ((Temp & 0x80)==0x80) ? Char_Color : BGround_Color);
-                        line(char_x+(i*lpx)+l, char_y+(((j+1)*lpy)-1)-k, char_x+(i*lpx)+l,  char_y+(((j+1)*lpy)-1)-k, ((Temp & 0x80)==0x80) ? Char_Color : BGround_Color);
+                        if( (Temp & 0x80)==0x80) 
+                        line(char_x+(i*lpx)+l, char_y+(((j+1)*lpy)-1)-k, char_x+(i*lpx)+l,  char_y+(((j+1)*lpy)-1)-k, Char_Color);
                     
                     }
                     Temp = Temp << 1;
