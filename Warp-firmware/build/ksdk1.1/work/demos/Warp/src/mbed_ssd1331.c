@@ -5,6 +5,7 @@
 #include "mbed_ssd1331.h"
 #include "devSSD1331.h"
 #include <stdint.h>
+#include "SEGGER_RTT.h"
 
 #define countof(x) ( sizeof(x) / sizeof(x[0]) )
 static const char font6x8[0x60][6] = {
@@ -139,12 +140,20 @@ void PutChar(uint8_t column,uint8_t row, int value)
         for(i=0; i<xw; i++) {
             for ( l=0; l<lpx; l++) {
                 Temp = font6x8[value-32][i];
+                
+                uint8_t line_length = 0;
+                
                 for(j=Y_height-1; j>=0; j--) {
-                    for (k=0; k<lpy; k++) {
-                        //pixel(char_x+(i*lpx)+l, char_y+(((j+1)*lpy)-1)-k,  ((Temp & 0x80)==0x80) ? Char_Color : BGround_Color);
-                        if( (Temp & 0x80)==0x80) 
-                        line(char_x+(i*lpx)+l, char_y+(((j+1)*lpy)-1)-k, char_x+(i*lpx)+l,  char_y+(((j+1)*lpy)-1)-k, Char_Color);
                     
+                    for (k=0; k<lpy; k++) {    
+                        if( (Temp & 0x80)==0x80) {
+                            line_length++;
+                        }else if(line_length>0){
+                            line(char_x+(i*lpx)+l, char_y+(((j+1)*lpy)-1)-k, char_x+(i*lpx)+l,  char_y+(((j+1)*lpy)-1)-k + line_length-1, Char_Color);
+                            line_length = 0;
+                        }
+                        
+                        
                     }
                     Temp = Temp << 1;
                 }

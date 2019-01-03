@@ -484,6 +484,18 @@ fsl_i2c_hal.h
 fsl_os_abstraction.h
 ../../../../platform/drivers/inc/fsl_os_abstraction.h
 
+../../../../platform/drivers/inc/fsl_lptmr_driver.h
+assert.h
+-
+stdint.h
+-
+stdbool.h
+-
+fsl_lptmr_hal.h
+../../../../platform/drivers/inc/fsl_lptmr_hal.h
+fsl_sim_hal.h
+../../../../platform/drivers/inc/fsl_sim_hal.h
+
 ../../../../platform/drivers/inc/fsl_rtc_driver.h
 stdint.h
 -
@@ -532,6 +544,16 @@ stdint.h
 stdbool.h
 -
 assert.h
+-
+fsl_device_registers.h
+../../../../platform/hal/inc/fsl_device_registers.h
+
+../../../../platform/hal/inc/fsl_lptmr_hal.h
+assert.h
+-
+stdint.h
+-
+stdbool.h
 -
 fsl_device_registers.h
 ../../../../platform/hal/inc/fsl_device_registers.h
@@ -971,6 +993,8 @@ fsl_pmc_hal.h
 /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/fsl_pmc_hal.h
 fsl_adc16_hal.h
 /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/fsl_adc16_hal.h
+fsl_lptmr_driver.h
+/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/fsl_lptmr_driver.h
 SEGGER_RTT.h
 /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT.h
 gpio_pins.h
@@ -1065,6 +1089,8 @@ devSSD1331.h
 /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devSSD1331.h
 stdint.h
 -
+SEGGER_RTT.h
+/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT.h
 
 /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/mbed_ssd1331.h
 stdint.h

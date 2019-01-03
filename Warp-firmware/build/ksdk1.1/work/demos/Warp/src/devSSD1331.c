@@ -238,11 +238,11 @@ devSSD1331init(void)
     
     //attempt to use the mbed library to write some text
         
-    SetFontSize(HIGH); // set tall font
+    SetFontSize(WH); // set tall font
     foreground(toRGB(0,255,0)); // set text colour
     
-    char *shot_result = "smash\n\n";
-    draw_result(shot_result, 7, 50);
+    char *shot_result = "s\n\n";
+    draw_result(shot_result, 3, 50);
 	
 	return 0;
 }

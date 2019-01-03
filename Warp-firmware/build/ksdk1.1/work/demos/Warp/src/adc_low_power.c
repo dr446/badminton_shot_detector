@@ -217,7 +217,7 @@ SEGGER_RTT_printf(0, "got here 1\n");
     ADC16_DRV_StructInitUserConfigDefault(&adcUserConfig);
     adcUserConfig.intEnable = true;
     adcUserConfig.resolutionMode = 2;
-    adcUserConfig.hwTriggerEnable = false;
+    adcUserConfig.hwTriggerEnable = true;
     adcUserConfig.continuousConvEnable = false;
     adcUserConfig.clkSrcMode = kAdcClkSrcOfAsynClk;
     ADC16_DRV_Init(instance, &adcUserConfig);
