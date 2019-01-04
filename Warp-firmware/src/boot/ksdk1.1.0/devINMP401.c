@@ -12,6 +12,7 @@
 #include "fsl_adc16_hal.h"
 #include "fsl_lptmr_driver.h"
 
+
 #include "SEGGER_RTT.h"
 #include "gpio_pins.h"
 
@@ -30,13 +31,28 @@ const uint32_t gSimBaseAddr[] = SIM_BASE_ADDRS;
 static smc_power_mode_config_t smcConfig;
 static lptmr_state_t gLPTMRState;
 
+
+
+
+
+bool shot_detected_flag;
+
+
+
+
+
+
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////////
 //  Code
 ///////////////////////////////////////////////////////////////////////////////
 
 /* enable the trigger source of LPTimer */
 void init_trigger_source(uint32_t adcInstance)
-{
+{/*
     lptmr_user_config_t lptmrUserConfig =
     {
         .timerMode = kLptmrTimerModeTimeCounter,
@@ -54,7 +70,7 @@ void init_trigger_source(uint32_t adcInstance)
 
     // Start the LPTimer
     LPTMR_DRV_Start(0);
-
+*/
     // Configure SIM for ADC hw trigger source selection
     SIM_HAL_SetAdcAlternativeTriggerCmd(gSimBaseAddr[0], adcInstance, true);
     SIM_HAL_SetAdcPreTriggerMode(gSimBaseAddr[0], adcInstance, kSimAdcPretrgselA);
@@ -73,20 +89,14 @@ void init_trigger_source(uint32_t adcInstance)
 
 void Microphone_ISR()
 {
- 
+    shot_detected_flag = true; 
      //store acceleration values into a buffer  
     SEGGER_RTT_printf(0, "ISR entered! WHoo!\n");  
+    //copy contents of acceleration buffer into shot buffer.
+    
+    
     
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -217,13 +227,7 @@ int devINMP401init(void)
     
     uint8_t flag = ADC16_DRV_GetChnFlag(ADC_0, CHANNEL_MIC, 0);
     SEGGER_RTT_printf(0, "\rflag = %d\n",  flag);  
-  while (1) {
-     int mic_output = ADC16_DRV_GetConvValueRAW(ADC_0, CHANNEL_0);
-     
-     
-     SEGGER_RTT_printf(0, "\rmic output = %d, %d\n", mic_output, err);  
-     OSA_TimeDelay(50);
-  }
+
 }
 
 

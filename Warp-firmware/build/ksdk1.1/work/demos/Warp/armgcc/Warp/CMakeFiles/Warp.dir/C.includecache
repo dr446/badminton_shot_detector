@@ -774,6 +774,12 @@ fsl_sim_hal.h
 ../src/clock/MKV10Z7/fsl_clock_MKV10Z7.h
 ../../../../platform/system/src/clock/MKV10Z7/fsl_clock_MKV10Z7.h
 
+../../../../platform/system/inc/fsl_hwtimer.h
+stdint.h
+-
+fsl_clock_manager.h
+../../../../platform/system/inc/fsl_clock_manager.h
+
 ../../../../platform/system/inc/fsl_interrupt_manager.h
 stdint.h
 -
@@ -1053,12 +1059,16 @@ fsl_mcglite_hal.h
 /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/fsl_mcglite_hal.h
 fsl_port_hal.h
 /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/fsl_port_hal.h
+fsl_lptmr_driver.h
+/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/fsl_lptmr_driver.h
 gpio_pins.h
 /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/gpio_pins.h
 SEGGER_RTT.h
 /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT.h
 warp.h
 /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/warp.h
+fsl_hwtimer.h
+/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/fsl_hwtimer.h
 
 /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMPU6050.h
 
@@ -1125,6 +1135,8 @@ fsl_mcglite_hal.h
 /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/fsl_mcglite_hal.h
 fsl_port_hal.h
 /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/fsl_port_hal.h
+fsl_lptmr_driver.h
+/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/fsl_lptmr_driver.h
 gpio_pins.h
 /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/gpio_pins.h
 SEGGER_RTT.h

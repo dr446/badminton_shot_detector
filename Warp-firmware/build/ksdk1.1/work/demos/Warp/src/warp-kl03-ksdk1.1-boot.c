@@ -41,7 +41,7 @@
 #include "fsl_power_manager.h"
 #include "fsl_mcglite_hal.h"
 #include "fsl_port_hal.h"
-
+#include "fsl_lptmr_driver.h"
 #include "gpio_pins.h"
 #include "SEGGER_RTT.h"
 #include "warp.h"
@@ -109,6 +109,8 @@ uint8_t					readHexByte(void);
 int					read4digits(void);
 
 
+uint16_t waveform_buffer[20][3];
+void badminton_shot_detector_routine();
 
 
 /*
@@ -452,7 +454,7 @@ lowPowerPinStates(void)
 	GPIO_DRV_ClearPinOutput(kWarpPinTPS82740B_CTLEN);
 	GPIO_DRV_ClearPinOutput(kWarpPinTPS82740_VSEL1);
 	GPIO_DRV_ClearPinOutput(kWarpPinTPS82740_VSEL2);
-	GPIO_DRV_ClearPinOutput(kWarpPinTPS82740_VSEL3);
+	//GPIO_DRV_ClearPinOutput(kWarpPinTPS82740_VSEL3);
 	GPIO_DRV_ClearPinOutput(kWarpPinCLKOUT32K);
 	GPIO_DRV_ClearPinOutput(kWarpPinTS5A3154_IN);
 	GPIO_DRV_ClearPinOutput(kWarpPinSI4705_nRST);
@@ -740,62 +742,10 @@ int
 main(void)
 {
 	uint8_t					key;
-	WarpSensorDevice			menuTargetSensor = kWarpSensorADXL362;
-	uint16_t				menuI2cPullupValue = 32768;
-	uint8_t					menuRegisterAddress = 0x00;
-	uint16_t				menuSupplyVoltage = 0;
 
 
+    
 	rtc_datetime_t				warpBootDate;
-
-	power_manager_user_config_t		warpPowerModeWaitConfig;
-	power_manager_user_config_t		warpPowerModeStopConfig;
-	power_manager_user_config_t		warpPowerModeVlpwConfig;
-	power_manager_user_config_t		warpPowerModeVlpsConfig;
-	power_manager_user_config_t		warpPowerModeVlls0Config;
-	power_manager_user_config_t		warpPowerModeVlls1Config;
-	power_manager_user_config_t		warpPowerModeVlls3Config;
-	power_manager_user_config_t		warpPowerModeRunConfig;
-
-	const power_manager_user_config_t	warpPowerModeVlprConfig = {
-							.mode			= kPowerManagerVlpr,
-							.sleepOnExitValue	= false,
-							.sleepOnExitOption	= false
-						};
-
-	power_manager_user_config_t const *	powerConfigs[] = {
-							/*
-							 *	NOTE: This order is depended on by POWER_SYS_SetMode()
-							 *
-							 *	See KSDK13APIRM.pdf Section 55.5.3
-							 */
-							&warpPowerModeWaitConfig,
-							&warpPowerModeStopConfig,
-							&warpPowerModeVlprConfig,
-							&warpPowerModeVlpwConfig,
-							&warpPowerModeVlpsConfig,
-							&warpPowerModeVlls0Config,
-							&warpPowerModeVlls1Config,
-							&warpPowerModeVlls3Config,
-							&warpPowerModeRunConfig,
-						};
-
-	WarpPowerManagerCallbackStructure			powerManagerCallbackStructure;
-
-	/*
-	 *	Callback configuration structure for power manager
-	 */
-	const power_manager_callback_user_config_t callbackCfg0 = {
-							callback0,
-							kPowerManagerCallbackBeforeAfter,
-							(power_manager_callback_data_t *) &powerManagerCallbackStructure};
-
-	/*
-	 *	Pointers to power manager callbacks.
-	 */
-	power_manager_callback_user_config_t const *	callbacks[] = {
-								&callbackCfg0
-						};
 
 
 
@@ -852,7 +802,7 @@ main(void)
 	CLOCK_SYS_UpdateConfiguration(CLOCK_CONFIG_INDEX_FOR_RUN, kClockManagerPolicyForcible);
 
 
-
+    
 	/*
 	 *	Initialize RTC Driver
 	 */
@@ -869,51 +819,15 @@ main(void)
 	warpBootDate.hour	= 0U;
 	warpBootDate.minute	= 0U;
 	warpBootDate.second	= 0U;
-	RTC_DRV_SetDatetime(0, &warpBootDate);
+	//RTC_DRV_SetDatetime(0, &warpBootDate);
 
-
-
-	/*
-	 *	Setup Power Manager Driver
-	 */
-	memset(&powerManagerCallbackStructure, 0, sizeof(WarpPowerManagerCallbackStructure));
-
-
-	warpPowerModeVlpwConfig = warpPowerModeVlprConfig;
-	warpPowerModeVlpwConfig.mode = kPowerManagerVlpw;
-	
-	warpPowerModeVlpsConfig = warpPowerModeVlprConfig;
-	warpPowerModeVlpsConfig.mode = kPowerManagerVlps;
-	
-	warpPowerModeWaitConfig = warpPowerModeVlprConfig;
-	warpPowerModeWaitConfig.mode = kPowerManagerWait;
-	
-	warpPowerModeStopConfig = warpPowerModeVlprConfig;
-	warpPowerModeStopConfig.mode = kPowerManagerStop;
-
-	warpPowerModeVlls0Config = warpPowerModeVlprConfig;
-	warpPowerModeVlls0Config.mode = kPowerManagerVlls0;
-
-	warpPowerModeVlls1Config = warpPowerModeVlprConfig;
-	warpPowerModeVlls1Config.mode = kPowerManagerVlls1;
-
-	warpPowerModeVlls3Config = warpPowerModeVlprConfig;
-	warpPowerModeVlls3Config.mode = kPowerManagerVlls3;
-
-	warpPowerModeRunConfig.mode = kPowerManagerRun;
-
-	POWER_SYS_Init(	&powerConfigs,
-			sizeof(powerConfigs)/sizeof(power_manager_user_config_t *),
-			&callbacks,
-			sizeof(callbacks)/sizeof(power_manager_callback_user_config_t *)
-			);
 
 
 
 	/*
 	 *	Switch CPU to Very Low Power Run (VLPR) mode
 	 */
-	warpSetLowPowerMode(kWarpPowerModeVLPR, 0);
+	//warpSetLowPowerMode(kWarpPowerModeVLPR, 0);
 
 
 
@@ -924,64 +838,26 @@ main(void)
 	 *	See also Section 30.3.3 GPIO Initialization of KSDK13APIRM.pdf
 	 */
 	GPIO_DRV_Init(inputPins  /* input pins */, outputPins  /* output pins */);
-	
-	/*
-	 *	Note that it is lowPowerPinStates() that sets the pin mux mode,
-	 *	so until we call it pins are in their default state.
-	 */
 	lowPowerPinStates();
-
-
-
-	/*
-	 *	Toggle LED3 (kWarpPinSI4705_nRST)
-	 */
-	GPIO_DRV_SetPinOutput(kWarpPinSI4705_nRST);
-	//OSA_TimeDelay(500);
-	GPIO_DRV_ClearPinOutput(kWarpPinSI4705_nRST);
-	//OSA_TimeDelay(500);
-	GPIO_DRV_SetPinOutput(kWarpPinSI4705_nRST);
-	//OSA_TimeDelay(500);
-	GPIO_DRV_ClearPinOutput(kWarpPinSI4705_nRST);
-	//OSA_TimeDelay(500);
-	GPIO_DRV_SetPinOutput(kWarpPinSI4705_nRST);
-	//OSA_TimeDelay(500);
-	GPIO_DRV_ClearPinOutput(kWarpPinSI4705_nRST);
-
-
-
+    enableI2Cpins(5);
 	/*
 	 *	Initialize all the sensors
 	 */
-	initMMA8451Q(	0x1D	/* i2cAddress */,	&deviceMMA8451QState	);	
-	initAS7262(	0x49	/* i2cAddress */,	&deviceAS7262State	);
-	initAS7263(	0x49	/* i2cAddress */,	&deviceAS7263State	);
-    initINA219( 0x40    /* i2cAddress */,   &deviceINA219State  );
+	//initMMA8451Q(	0x1D	/* i2cAddress */,	&deviceMMA8451QState	);	
+	//initAS7262(	0x49	/* i2cAddress */,	&deviceAS7262State	);
+	//initAS7263(	0x49	/* i2cAddress */,	&deviceAS7263State	);
+   // initINA219( 0x40    /* i2cAddress */,   &deviceINA219State  );
     initMPU6050( 0x68    /* i2cAddress */,   &deviceMPU6050State  );
-
-
-
 	
 	disableSssupply();
-
-
-    enableI2Cpins(5);
-    
     
     //initialise OLED display
     devSSD1331init();
     
-
-    for (int i =0; i <2; i++){
-        print_accelerations();
-        //OSA_TimeDelay(10);
-        
-    }
         
     //init ADC microphone
     devINMP401init();
     
-    //init_temp();
     
 	return 0;
 }
@@ -989,115 +865,13 @@ main(void)
 
 
 
-
-int
-char2int(int character)
+void badminton_shot_detector_routine()
 {
-	if (character >= '0' && character <= '9')
-	{
-		return character - '0';
-	}
 
-	if (character >= 'a' && character <= 'f')
-	{
-		return character - 'a' + 10;
-	}
+    
+    
 
-	if (character >= 'A' && character <= 'F')
-	{
-		return character - 'A' + 10;
-	}
-
-	return 0;
 }
-
-
-
-uint8_t
-readHexByte(void)
-{
-	uint8_t		topNybble, bottomNybble;
-
-	topNybble = SEGGER_RTT_WaitKey();
-	bottomNybble = SEGGER_RTT_WaitKey();
-
-	return (char2int(topNybble) << 4) + char2int(bottomNybble);
-}
-
-
-
-int
-read4digits(void)
-{
-	uint8_t		digit1, digit2, digit3, digit4;
-	
-	digit1 = SEGGER_RTT_WaitKey();
-	digit2 = SEGGER_RTT_WaitKey();
-	digit3 = SEGGER_RTT_WaitKey();
-	digit4 = SEGGER_RTT_WaitKey();
-
-	return (digit1 - '0')*1000 + (digit2 - '0')*100 + (digit3 - '0')*10 + (digit4 - '0');
-}
-
-
-
-WarpStatus
-writeByteToI2cDeviceRegister(uint8_t i2cAddress, bool sendCommandByte, uint8_t commandByte, bool sendPayloadByte, uint8_t payloadByte)
-{
-	i2c_status_t	status;
-	uint8_t		commandBuffer[1];
-	uint8_t		payloadBuffer[1];
-	i2c_device_t	i2cSlaveConfig =
-			{
-				.address = i2cAddress,
-				.baudRate_kbps = gWarpI2cBaudRateKbps
-			};
-
-	commandBuffer[0] = commandByte;
-	payloadBuffer[0] = payloadByte;
-
-	/*
-	 *	TODO: Need to appropriately set the pullup value here
-	 */
-	enableI2Cpins(65535 /* pullupValue*/);
-
-	status = I2C_DRV_MasterSendDataBlocking(
-						0	/* instance */,
-						&i2cSlaveConfig,
-						commandBuffer,
-						(sendCommandByte ? 1 : 0),
-						payloadBuffer,
-						(sendPayloadByte ? 1 : 0),
-						1000	/* timeout in milliseconds */);
-	disableI2Cpins();
-
-	return (status == kStatus_I2C_Success ? kWarpStatusOK : kWarpStatusDeviceCommunicationFailed);
-}
-
-
-
-WarpStatus
-writeBytesToSpi(uint8_t *  payloadBytes, int payloadLength)
-{
-	uint8_t		inBuffer[payloadLength];
-	spi_status_t	status;
-	
-	enableSPIpins();
-	status = SPI_DRV_MasterTransferBlocking(0		/* master instance */,
-						NULL		/* spi_master_user_config_t */,
-						payloadBytes,
-						inBuffer,
-						payloadLength	/* transfer size */,
-						1000		/* timeout in microseconds (unlike I2C which is ms) */);					
-	disableSPIpins();
-
-	return (status == kStatus_SPI_Success ? kWarpStatusOK : kWarpStatusCommsError);
-}
-
-
-
-
-
 
 
 

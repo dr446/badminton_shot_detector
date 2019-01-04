@@ -9,24 +9,36 @@
 #include "fsl_power_manager.h"
 #include "fsl_mcglite_hal.h"
 #include "fsl_port_hal.h"
-
+#include "fsl_lptmr_driver.h"
 #include "gpio_pins.h"
 #include "SEGGER_RTT.h"
 #include "warp.h"
+#include "fsl_hwtimer.h"
+
+#define LPTMR_INSTANCE 0U
 
 extern volatile WarpI2CDeviceState	deviceMPU6050State;
 extern volatile uint32_t		gWarpI2cBaudRateKbps;
 
-void initMPU6050(const uint8_t i2cAddress, WarpI2CDeviceState volatile *  deviceStatePointer)
-{
-	
-	deviceStatePointer->i2cAddress	= i2cAddress;
-	deviceStatePointer->signalType	= (kWarpTypeMaskAccelerationX |
-						kWarpTypeMaskAccelerationY |
-						kWarpTypeMaskAccelerationZ);
-					
-	return;
-}
+uint16_t acceleration_circular_buffer[20][3];
+uint8_t head;
+bool buffer_full;
+
+extern uint16_t waveform_buffer[20][3];
+
+
+
+#define HWTIMER_LL_DEVIF    kSystickDevif
+#define HWTIMER_LL_ID       0
+
+#define HWTIMER_ISR_PRIOR       5
+#define HWTIMER_PERIOD          100000
+#define HWTIMER_DOTS_PER_LINE   40
+#define HWTIMER_LINES_COUNT     2
+
+extern const hwtimer_devif_t kSystickDevif;
+extern const hwtimer_devif_t kPitDevif;
+hwtimer_t hwtimer;
 
 
 uint8_t readSensorRegisterMPU6050(uint8_t deviceRegister)
@@ -98,5 +110,109 @@ void print_accelerations()
         
 }
 
+uint16_t get_acc_x()
+{
+    uint16_t x_acc;
+    x_acc = readSensorRegisterMPU6050(0x3B);
+    x_acc = x_acc <<8| readSensorRegisterMPU6050(0x3C);
+    return x_acc;
+}
 
+uint16_t get_acc_y()
+{
+    uint16_t y_acc;
+    y_acc = readSensorRegisterMPU6050(0x3D);
+    y_acc = y_acc <<8| readSensorRegisterMPU6050(0x3E);
+    return y_acc;
+}
+
+uint16_t get_acc_z()
+{
+    uint16_t z_acc;
+    z_acc = readSensorRegisterMPU6050(0x3F);
+    z_acc = z_acc <<8| readSensorRegisterMPU6050(0x40);
+    return z_acc;
+}
+
+
+//interrupt that reads MPU6050 every 100ms and stores in circular buffer.
+void MPU6050_ISR()
+{/*
+    uint16_t x_acc = acceleration_circular_buffer[head][0] = get_acc_x();
+    uint16_t y_acc = acceleration_circular_buffer[head][1] = get_acc_y();
+    uint16_t z_acc = acceleration_circular_buffer[head][2] = get_acc_z();
+    
+    head++;
+    
+    if(head>19){
+        head = 0;    
+    }*/
+    
+   // SEGGER_RTT_printf(0, "\rx_acc= %d y_acc= %d z_acc= %d\n",x_acc, y_acc, z_acc);
+    SEGGER_RTT_printf(0, "acc ISR entered! WHoo!\n"); 
+}
+
+
+void update_shot_buffer()
+{
+    for(int i = 0; i<20; i++)
+    {
+        waveform_buffer[i][0] =  acceleration_circular_buffer[head][0];
+        waveform_buffer[i][1] =  acceleration_circular_buffer[head][1];
+        waveform_buffer[i][2] =  acceleration_circular_buffer[head][2];
+        head++;
+        if(head>20)
+        {
+            head = 0;
+        }
+    }
+}
+
+void LPTMR0_IRQHandler(void)
+{
+    LPTMR_DRV_IRQHandler(LPTMR_INSTANCE); 
+}
+
+
+void initMPU6050(const uint8_t i2cAddress, WarpI2CDeviceState volatile *  deviceStatePointer)
+{
+
+	deviceStatePointer->i2cAddress	= i2cAddress;
+	deviceStatePointer->signalType	= (kWarpTypeMaskAccelerationX |
+						kWarpTypeMaskAccelerationY |
+						kWarpTypeMaskAccelerationZ);
+	
+
+    const lptmr_user_config_t lptmr_usr_config = 
+    {
+        .timerMode = kLptmrTimerModeTimeCounter, //timer counter
+        .freeRunningEnable = false,
+        .isInterruptEnabled = true,
+        .prescalerEnable = false,
+        .prescalerClockSource =kLpoClock, //Low power oscillator 1khz
+        .pinSelect = kLptmrPinSelectInput1
+    };
+    
+    lptmr_state_t lptmrState;
+    lptmr_status_t lptmr_status;
+    
+    //bool stat = lptmr_status = LPTMR_DRV_Init(LPTMR_INSTANCE, &lptmr_usr_config, &lptmrState);
+    
+
+      
+    //lptmr_status = LPTMR_DRV_SetTimerPeriodUs(LPTMR_INSTANCE,100000); //0.1s period 
+    
+    //lptmr_status = LPTMR_DRV_InstallCallback(LPTMR_INSTANCE, MPU6050_ISR);
+    //LPTMR_DRV_Start(LPTMR_INSTANCE); // Stop time for spi comms
+    //lptmr_status = LPTMR_DRV_Stop(LPTMR_INSTANCE);
+    
+    
+
+    // Wait for Hardware Timer interrupts
+    SEGGER_RTT_printf(0, "Initialised\n"); 
+    lptmr_pin_select_t pin_mode = LPTMR_DRV_GetCurrentTimeUs(LPTMR_INSTANCE);
+    SEGGER_RTT_printf(0, "status = %d\n", pin_mode);
+	return;
+	
+}
 
