@@ -25,11 +25,11 @@
 #define CHANNEL_0               (0U)
 #define CHANNEL_MIC             (9U)
 
-#define LPTMR_COMPARE_VALUE     (500000U)   // Low Power Timer interrupt time in microseconds
+//#define LPTMR_COMPARE_VALUE     (500000U)   // Low Power Timer interrupt time in microseconds
 
 const uint32_t gSimBaseAddr[] = SIM_BASE_ADDRS;
 static smc_power_mode_config_t smcConfig;
-static lptmr_state_t gLPTMRState;
+//static lptmr_state_t gLPTMRState;
 
 
 
@@ -73,8 +73,8 @@ void init_trigger_source(uint32_t adcInstance)
 */
     // Configure SIM for ADC hw trigger source selection
     SIM_HAL_SetAdcAlternativeTriggerCmd(gSimBaseAddr[0], adcInstance, true);
-    SIM_HAL_SetAdcPreTriggerMode(gSimBaseAddr[0], adcInstance, kSimAdcPretrgselA);
-    SIM_HAL_SetAdcTriggerMode(gSimBaseAddr[0], adcInstance, kSimAdcTrgSelLptimer);
+    //SIM_HAL_SetAdcPreTriggerMode(gSimBaseAddr[0], adcInstance, kSimAdcPretrgselA);
+    //SIM_HAL_SetAdcTriggerMode(gSimBaseAddr[0], adcInstance, kSimAdcTrgSelLptimer);
 }
 
 

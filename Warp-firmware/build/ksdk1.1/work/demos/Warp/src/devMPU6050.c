@@ -183,35 +183,7 @@ void initMPU6050(const uint8_t i2cAddress, WarpI2CDeviceState volatile *  device
 						kWarpTypeMaskAccelerationZ);
 	
 
-    const lptmr_user_config_t lptmr_usr_config = 
-    {
-        .timerMode = kLptmrTimerModeTimeCounter, //timer counter
-        .freeRunningEnable = false,
-        .isInterruptEnabled = true,
-        .prescalerEnable = false,
-        .prescalerClockSource =kLpoClock, //Low power oscillator 1khz
-        .pinSelect = kLptmrPinSelectInput1
-    };
-    
-    lptmr_state_t lptmrState;
-    lptmr_status_t lptmr_status;
-    
-    //bool stat = lptmr_status = LPTMR_DRV_Init(LPTMR_INSTANCE, &lptmr_usr_config, &lptmrState);
-    
-
-      
-    //lptmr_status = LPTMR_DRV_SetTimerPeriodUs(LPTMR_INSTANCE,100000); //0.1s period 
-    
-    //lptmr_status = LPTMR_DRV_InstallCallback(LPTMR_INSTANCE, MPU6050_ISR);
-    //LPTMR_DRV_Start(LPTMR_INSTANCE); // Stop time for spi comms
-    //lptmr_status = LPTMR_DRV_Stop(LPTMR_INSTANCE);
-    
-    
-
-    // Wait for Hardware Timer interrupts
-    SEGGER_RTT_printf(0, "Initialised\n"); 
-    lptmr_pin_select_t pin_mode = LPTMR_DRV_GetCurrentTimeUs(LPTMR_INSTANCE);
-    SEGGER_RTT_printf(0, "status = %d\n", pin_mode);
+   
 	return;
 	
 }

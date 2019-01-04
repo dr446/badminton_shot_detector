@@ -62,6 +62,9 @@
 #define					kWarpConstantStringErrorSanity		"\rSanity Check Failed!"
 
 
+#define LPTMR_INSTANCE 0U
+
+
 volatile WarpI2CDeviceState		deviceMMA8451QState;
 volatile WarpI2CDeviceState		deviceAS7262State;
 volatile WarpI2CDeviceState		deviceAS7263State;
@@ -848,6 +851,45 @@ main(void)
 	//initAS7263(	0x49	/* i2cAddress */,	&deviceAS7263State	);
    // initINA219( 0x40    /* i2cAddress */,   &deviceINA219State  );
     initMPU6050( 0x68    /* i2cAddress */,   &deviceMPU6050State  );
+	
+	
+	
+	
+	
+	 const lptmr_user_config_t lptmr_usr_config = 
+    {
+        .timerMode = kLptmrTimerModeTimeCounter, //timer counter
+        .freeRunningEnable = false,
+        .isInterruptEnabled = true,
+        .prescalerEnable = false,
+        .prescalerClockSource =kClockLptmrSrcLpoClk, //Low power oscillator 1khz
+        .pinSelect = kLptmrPinSelectInput3
+    };
+    
+    lptmr_state_t lptmrState;
+    lptmr_status_t lptmr_status;
+    
+    bool stat = lptmr_status = LPTMR_DRV_Init(LPTMR_INSTANCE, &lptmr_usr_config, &lptmrState);
+    
+
+      
+    lptmr_status = LPTMR_DRV_SetTimerPeriodUs(LPTMR_INSTANCE,500000); //0.1s period 
+    
+    lptmr_status = LPTMR_DRV_InstallCallback(LPTMR_INSTANCE, MPU6050_ISR);
+    LPTMR_DRV_Start(LPTMR_INSTANCE); // Stop time for spi comms
+    //lptmr_status = LPTMR_DRV_Stop(LPTMR_INSTANCE);
+    
+    
+    
+    
+    
+
+    // Wait for Hardware Timer interrupts
+    SEGGER_RTT_printf(0, "Initialised\n"); 
+    lptmr_pin_select_t pin_mode = LPTMR_DRV_GetCurrentTimeUs(LPTMR_INSTANCE);
+    SEGGER_RTT_printf(0, "status = %d\n", pin_mode);
+	
+	
 	
 	disableSssupply();
     
