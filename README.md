@@ -2,14 +2,14 @@
 
 Diya Rajan, Selwyn College, dr446
 
-##Summary
+## Summary
 
 This project is fun way to help badminton players improve their game. The hardware of the system consists of two modules. One is placed on the wrist, like a watch, and contains an accelerometer, a microphone and an OLED screen. The other contains the microcontroller and power supply and is worn on the upper arm. 
 
 The system detects a shot using the microphone and aims to classify it into one of four types; a lift, a drive, a clear or a drop. It does this by comparing the acceleration values of the sensor as the shot was played and comparing it to a "template" waveform for each shot.
 
 
-##Repository Layout
+## Repository Layout
 
 The project uses the Warp-firmware framework. The source code is located in Warp-firmware/src/boot/ksdk1.1.0
 
