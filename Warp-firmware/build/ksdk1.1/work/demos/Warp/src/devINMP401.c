@@ -91,7 +91,7 @@ void Microphone_ISR()
 {
     shot_detected_flag = true; 
      //store acceleration values into a buffer  
-    SEGGER_RTT_printf(0, "ISR entered! WHoo!\n");  
+    //SEGGER_RTT_printf(0, "ISR entered! WHoo!\n");  
     //copy contents of acceleration buffer into shot buffer.
     
     

@@ -14,18 +14,20 @@
 #include "SEGGER_RTT.h"
 #include "warp.h"
 #include "fsl_hwtimer.h"
+#include "devINMP401.h"
 
 #define LPTMR_INSTANCE 0U
 
 extern volatile WarpI2CDeviceState	deviceMPU6050State;
 extern volatile uint32_t		gWarpI2cBaudRateKbps;
 
-uint16_t acceleration_circular_buffer[20][3];
+uint16_t acceleration_circular_buffer[10][3];
 uint8_t head;
 bool buffer_full;
 
-extern uint16_t waveform_buffer[20][3];
-
+uint16_t waveform_buffer[10][3];
+bool read_acceleration_flag;
+extern shot_detected_flag;
 
 
 #define HWTIMER_LL_DEVIF    kSystickDevif
@@ -46,26 +48,18 @@ uint8_t readSensorRegisterMPU6050(uint8_t deviceRegister)
 
 
     uint8_t cmdBuf[1]	= {0xFF};
-    uint8_t 	sendBuf[2]	= {0x6B, 0x0};
 	i2c_status_t		returnValue;
 	
 	i2c_device_t slave =
 	{
 		.address = deviceMPU6050State.i2cAddress,
-		.baudRate_kbps = gWarpI2cBaudRateKbps
+		.baudRate_kbps = 1
 	};
 	
 	cmdBuf[0] = deviceRegister;
 	uint32_t receive_1;
     
-    returnValue = I2C_DRV_MasterSendDataBlocking(
-							0 /* I2C peripheral instance */,
-							&slave,
-							NULL,
-							0,
-							sendBuf,
-							2,//TODO: for now, we fix command code as two byte 'read firmware version' command
-							500 /* timeout in milliseconds */);
+
     
 	returnValue = I2C_DRV_MasterReceiveDataBlocking(
 							0 /* I2C peripheral instance */,
@@ -74,16 +68,16 @@ uint8_t readSensorRegisterMPU6050(uint8_t deviceRegister)
 							1,
 							&receive_1,
 							1,
-							500 /* timeout in milliseconds */);
+							100 /* timeout in milliseconds */);
 	
 	if (returnValue == kStatus_I2C_Success)
 	{
-		//SEGGER_RTT_printf(0, "\r[0x%02x]	0x%02x\n", cmdBuf[0], deviceINA219State.i2cBuffer[0]);
+		//SEGGER_RTT_printf(0, "\rgood\n");
 	}
 	else
 	{
 		SEGGER_RTT_printf(0, 0, 0x01, returnValue);
-
+       // SEGGER_RTT_printf(0, "\rfail\n");
 		//return kWarpStatusDeviceCommunicationFailed;
 	}
 	
@@ -94,19 +88,28 @@ uint8_t readSensorRegisterMPU6050(uint8_t deviceRegister)
 void print_accelerations()
 {
     
+    uint16_t x_high_acc, y_high_acc, z_high_acc;
+    uint16_t x_low_acc, y_low_acc, z_low_acc;
     uint16_t x_acc, y_acc, z_acc;
-    int minVal=265; int maxVal=402;
-    int x; int y; int z;
+    uint16_t minVal=265; uint16_t maxVal=402;
     
-    x_acc = readSensorRegisterMPU6050(0x3B);
-    x_acc = x_acc <<8| readSensorRegisterMPU6050(0x3C);
-    y_acc = readSensorRegisterMPU6050(0x3D);
-    y_acc = y_acc <<8| readSensorRegisterMPU6050(0x3E);
-    z_acc = readSensorRegisterMPU6050(0x3F);
-    z_acc = z_acc <<8| readSensorRegisterMPU6050(0x40);
-    uint8_t who = readSensorRegisterMPU6050(0x6B);
-   
-    SEGGER_RTT_printf(0, "\rx_acc= %d y_acc= %d z_acc= %d\n",x_acc, y_acc, z_acc);
+    x_high_acc = readSensorRegisterMPU6050(0x3B);//b
+    OSA_TimeDelay(15);
+    x_low_acc = readSensorRegisterMPU6050(0x3C);
+    OSA_TimeDelay(15);
+    y_high_acc = readSensorRegisterMPU6050(0x3D);//d
+    OSA_TimeDelay(15);
+    y_low_acc = readSensorRegisterMPU6050(0x3E);//e
+    OSA_TimeDelay(15);
+    z_high_acc = readSensorRegisterMPU6050(0x3F);//f
+    OSA_TimeDelay(15);
+    z_low_acc = readSensorRegisterMPU6050(0x40);//40
+    
+    x_acc = ((x_high_acc << 8) & 0xFF00) | (x_low_acc & 0xFF);
+    y_acc = ((y_high_acc << 8) & 0xFF00) | (y_low_acc & 0xFF);
+    z_acc = ((z_high_acc << 8) & 0xFF00) | (z_low_acc & 0xFF);
+       
+    SEGGER_RTT_printf(0, "\rx_acc= %d y_acc= %d z_acc= %d\n", x_acc, y_high_acc, z_high_acc);
         
 }
 
@@ -114,6 +117,7 @@ uint16_t get_acc_x()
 {
     uint16_t x_acc;
     x_acc = readSensorRegisterMPU6050(0x3B);
+    OSA_TimeDelay(15);
     x_acc = x_acc <<8| readSensorRegisterMPU6050(0x3C);
     return x_acc;
 }
@@ -122,6 +126,7 @@ uint16_t get_acc_y()
 {
     uint16_t y_acc;
     y_acc = readSensorRegisterMPU6050(0x3D);
+    OSA_TimeDelay(15);
     y_acc = y_acc <<8| readSensorRegisterMPU6050(0x3E);
     return y_acc;
 }
@@ -130,48 +135,51 @@ uint16_t get_acc_z()
 {
     uint16_t z_acc;
     z_acc = readSensorRegisterMPU6050(0x3F);
+    OSA_TimeDelay(15);
     z_acc = z_acc <<8| readSensorRegisterMPU6050(0x40);
     return z_acc;
 }
 
 
-//interrupt that reads MPU6050 every 100ms and stores in circular buffer.
-void MPU6050_ISR()
-{/*
-    uint16_t x_acc = acceleration_circular_buffer[head][0] = get_acc_x();
-    uint16_t y_acc = acceleration_circular_buffer[head][1] = get_acc_y();
-    uint16_t z_acc = acceleration_circular_buffer[head][2] = get_acc_z();
-    
+
+
+void update_circular_buffer()
+{
+
+    acceleration_circular_buffer[head][0] = get_acc_x();
+    acceleration_circular_buffer[head][1] = get_acc_y();
+    acceleration_circular_buffer[head][2] = get_acc_z();
+   //SEGGER_RTT_printf(0, "\rx_acc= %d y_acc= %d z_acc= %d\n",acceleration_circular_buffer[head][0],acceleration_circular_buffer[head][1], acceleration_circular_buffer[head][2]);
     head++;
     
-    if(head>19){
+    if(head>9){
         head = 0;    
-    }*/
+    }
+
+    read_acceleration_flag = false;
     
-   // SEGGER_RTT_printf(0, "\rx_acc= %d y_acc= %d z_acc= %d\n",x_acc, y_acc, z_acc);
-    SEGGER_RTT_printf(0, "acc ISR entered! WHoo!\n"); 
 }
+
 
 
 void update_shot_buffer()
 {
-    for(int i = 0; i<20; i++)
+    for(int i = 0; i<10; i++)
     {
         waveform_buffer[i][0] =  acceleration_circular_buffer[head][0];
         waveform_buffer[i][1] =  acceleration_circular_buffer[head][1];
         waveform_buffer[i][2] =  acceleration_circular_buffer[head][2];
+        
+      //  SEGGER_RTT_printf(0, "\rx_acc= %d y_acc= %d z_acc= %d\n",waveform_buffer[i][0],waveform_buffer[i][1], waveform_buffer[i][2]);
+        
         head++;
-        if(head>20)
+        if(head>9)
         {
             head = 0;
         }
     }
 }
 
-void LPTMR0_IRQHandler(void)
-{
-    LPTMR_DRV_IRQHandler(LPTMR_INSTANCE); 
-}
 
 
 void initMPU6050(const uint8_t i2cAddress, WarpI2CDeviceState volatile *  deviceStatePointer)
@@ -182,7 +190,23 @@ void initMPU6050(const uint8_t i2cAddress, WarpI2CDeviceState volatile *  device
 						kWarpTypeMaskAccelerationY |
 						kWarpTypeMaskAccelerationZ);
 	
-
+    uint8_t 	sendBuf[2]	= {0x6B, 0x0};
+	i2c_status_t		returnValue;
+		
+	i2c_device_t slave =
+	{
+		.address = deviceMPU6050State.i2cAddress,
+		.baudRate_kbps = 1
+	};
+	
+	returnValue = I2C_DRV_MasterSendDataBlocking(
+							0,
+							&slave,
+							NULL,
+							0,
+							sendBuf,
+							2,
+							100);
    
 	return;
 	

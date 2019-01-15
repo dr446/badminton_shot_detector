@@ -108,11 +108,23 @@ static const char font6x8[0x60][6] = {
 };
 
 
+extern uint8_t first_char_flag;
 
+void reset_cursor()
+{
+    char_x = 0;
+    char_y = 0;
+    first_char_flag = 1;
+}
 
 
 void PutChar(uint8_t column,uint8_t row, int value)
 {
+        if(first_char_flag == 1)
+        {
+            SEGGER_RTT_printf(0, "char_x = %d, char_y = %d\n", char_x, char_y);
+            first_char_flag = 0;
+        }
 
         // internal font
         

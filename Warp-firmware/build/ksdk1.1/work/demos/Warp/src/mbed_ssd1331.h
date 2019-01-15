@@ -157,7 +157,7 @@ void gettime()
     uint16_t toRGB(uint16_t R,uint16_t G,uint16_t B);   // get color from RGB values 00~FF(0~255)
     uint8_t row(); // set row position (in pixels)
     uint8_t column(); // set column position (in pixels)
-    
+    void reset_cursor();
     
     // use GIMP to generate images, open image, select image-scale image, set width/height(max 96x64), select File-Export As
     // select Windows BMP image, Name it with .BMP extension, select export, select Compatability Options- check 'Do Not write colour space'

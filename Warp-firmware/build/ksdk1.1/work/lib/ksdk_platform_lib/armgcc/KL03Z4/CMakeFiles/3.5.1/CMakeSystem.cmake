@@ -3,7 +3,7 @@ set(CMAKE_HOST_SYSTEM_NAME "Linux")
 set(CMAKE_HOST_SYSTEM_VERSION "4.15.0-43-generic")
 set(CMAKE_HOST_SYSTEM_PROCESSOR "x86_64")
 
-include("/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/tools/cmake_toolchain_files/armgcc.cmake")
+include("/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/tools/cmake_toolchain_files/armgcc.cmake")
 
 set(CMAKE_SYSTEM "Generic")
 set(CMAKE_SYSTEM_NAME "Generic")

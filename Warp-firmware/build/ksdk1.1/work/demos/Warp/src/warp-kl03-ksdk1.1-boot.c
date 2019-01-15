@@ -112,9 +112,10 @@ uint8_t					readHexByte(void);
 int					read4digits(void);
 
 
-uint16_t waveform_buffer[20][3];
+extern uint16_t waveform_buffer[10][3];
+extern bool read_acceleration_flag;
+extern bool shot_detected_flag;
 void badminton_shot_detector_routine();
-
 
 /*
  *	TODO: change the following to take byte arrays
@@ -782,7 +783,6 @@ main(void)
 	 */
 	SEGGER_RTT_ConfigUpBuffer(0, NULL, NULL, 0, SEGGER_RTT_MODE_NO_BLOCK_TRIM);
 
-
 	SEGGER_RTT_WriteString(0, "\n\n\n\rBooting Warp, in 3... ");
 	OSA_TimeDelay(500);
 	SEGGER_RTT_WriteString(0, "2... ");
@@ -809,7 +809,7 @@ main(void)
 	/*
 	 *	Initialize RTC Driver
 	 */
-	RTC_DRV_Init(0);
+	//RTC_DRV_Init(0);
 
 
 
@@ -841,7 +841,7 @@ main(void)
 	 *	See also Section 30.3.3 GPIO Initialization of KSDK13APIRM.pdf
 	 */
 	GPIO_DRV_Init(inputPins  /* input pins */, outputPins  /* output pins */);
-	lowPowerPinStates();
+	//lowPowerPinStates();
     enableI2Cpins(5);
 	/*
 	 *	Initialize all the sensors
@@ -852,54 +852,26 @@ main(void)
    // initINA219( 0x40    /* i2cAddress */,   &deviceINA219State  );
     initMPU6050( 0x68    /* i2cAddress */,   &deviceMPU6050State  );
 	
-	
-	
-	
-	
-	 const lptmr_user_config_t lptmr_usr_config = 
-    {
-        .timerMode = kLptmrTimerModeTimeCounter, //timer counter
-        .freeRunningEnable = false,
-        .isInterruptEnabled = true,
-        .prescalerEnable = false,
-        .prescalerClockSource =kClockLptmrSrcLpoClk, //Low power oscillator 1khz
-        .pinSelect = kLptmrPinSelectInput3
-    };
-    
-    lptmr_state_t lptmrState;
-    lptmr_status_t lptmr_status;
-    
-    bool stat = lptmr_status = LPTMR_DRV_Init(LPTMR_INSTANCE, &lptmr_usr_config, &lptmrState);
-    
-
-      
-    lptmr_status = LPTMR_DRV_SetTimerPeriodUs(LPTMR_INSTANCE,500000); //0.1s period 
-    
-    lptmr_status = LPTMR_DRV_InstallCallback(LPTMR_INSTANCE, MPU6050_ISR);
-    LPTMR_DRV_Start(LPTMR_INSTANCE); // Stop time for spi comms
-    //lptmr_status = LPTMR_DRV_Stop(LPTMR_INSTANCE);
-    
-    
-    
-    
-    
-
-    // Wait for Hardware Timer interrupts
-    SEGGER_RTT_printf(0, "Initialised\n"); 
-    lptmr_pin_select_t pin_mode = LPTMR_DRV_GetCurrentTimeUs(LPTMR_INSTANCE);
-    SEGGER_RTT_printf(0, "status = %d\n", pin_mode);
-	
-	
-	
 	disableSssupply();
     
-    //initialise OLED display
-    devSSD1331init();
+    
+   uint8_t who_am_I = readSensorRegisterMPU6050(0x75);
+   SEGGER_RTT_printf(0, "who_am_I = %d\n", who_am_I);
+   uint8_t temp = readSensorRegisterMPU6050(0x42);
+   SEGGER_RTT_printf(0, "temp = %d\n", temp);
+   //initialise OLED display
+   devSSD1331init();
     
         
     //init ADC microphone
     devINMP401init();
+    /*
+    while(1){
+        print_accelerations();
+        OSA_TimeDelay(100);
+    }*/
     
+    badminton_shot_detector_routine();
     
 	return 0;
 }
@@ -909,9 +881,112 @@ main(void)
 
 void badminton_shot_detector_routine()
 {
-
+    //reference shot waveforms
+    uint16_t smash[10][3] = {{ 12532 , 58892 , 8452 },{ 12304 , 58532 , 11020 }, { 10712 , 59468 , 11088 }, { 11840 , 57692 , 10364 }, { 9680 , 54884 , 8716 }, { 24252 , 52672 , 7632 }, { 1484 , 49688 , 63320 }, { 63148 , 49424 , 63832 }, { 62776 , 376 , 2444 }, { 7372 , 5072 , 23556 }};
+    
+    uint16_t lift[10][3] = {{ 10572 , 13188 , 62064 },{ 10660 , 12084 , 61724 }, { 11432 , 11476 , 61168 }, { 13108 , 10340 , 58188 }, { 10908 , 11120 , 55276 }, { 12700 , 11136 , 60136 }, { 9556 , 64348 , 55540 }, { 10484 , 61340 , 54612 }, { 11968 , 64416 , 55596 }, { 14036 , 2504 , 55996 }};
+    
+    uint16_t drop[10][3] = {{ 11140 , 12308 , 68 },{ 11364 , 11260 , 796 }, { 14572 , 10260 , 65204 }, { 15704 , 7388 , 62308 }, { 14748 , 1324 , 58120 }, { 12772 , 64772 , 55904 }, { 17204 , 60524 , 57344 }, { 12192 , 60104 , 64836 }, { 10952 , 60292 , 8776 }, { 9920 , 63392 , 9556 }};
+    
+    uint16_t clear[10][3] = {{ 59136 , 50816 , 63496 },{ 59088 , 50580 , 63364 }, { 58932 , 50756 , 64052 }, { 58572 , 50556 , 59828 }, { 58344 , 49676 , 848 }, { 61964 , 52744 , 5316 }, { 64864 , 54772 , 8792 }, { 6216 , 1112 , 12380 }, { 11692 , 9912 , 12432 }, { 14224 , 12048 , 8712 }};
     
     
+    while(1)
+    {
+        while(!shot_detected_flag)
+        {
+            update_circular_buffer();
+            OSA_TimeDelay(100);
+        }
+        
+        update_shot_buffer();
+        
+        for(int i = 0; i <10; i++)
+        {
+            SEGGER_RTT_printf(0, "waveform[%d] = %d\n", i, waveform_buffer[i][1]);
+        }
+           
+        //perform cross correlation
+        float smash_score=0;
+        float lift_score=0;
+        float drop_score=0;
+        float clear_score=0;
+        //normalisation values
+        uint16_t wave_norm = 0;
+        uint16_t smash_norm = 0;
+        uint16_t lift_norm = 0;
+        uint16_t drop_norm = 0;
+        uint16_t clear_norm = 0;
+        
+        for(int i = 0; i<10; i++)
+        {
+            for(int j = 0; j<3; j++)
+            {
+               smash_score += waveform_buffer[i][j]*smash[i][j];
+               lift_score += waveform_buffer[i][j]*lift[i][j];
+               drop_score += waveform_buffer[i][j]*drop[i][j];
+               clear_score += waveform_buffer[i][j]*clear[i][j];
+               
+               wave_norm = waveform_buffer[i][j]*waveform_buffer[i][j];
+               lift_norm = lift[i][j]*lift[i][j];
+               smash_norm = smash[i][j]*smash[i][j];
+               drop_norm = drop[i][j]*drop[i][j]; 
+               clear_norm = clear[i][j]*clear[i][j];
+               
+            }
+        }
+        //SEGGER_RTT_printf(0, "smash_score = %d, lift_score = %d, drop_score = %d, clear_score = %d\n", smash_score, lift_score, drop_score, clear_score);
+       smash_score = smash_score/(smash_norm);
+        lift_score = lift_score/(lift_norm);
+        drop_score = drop_score/(drop_norm);
+        clear_score = clear_score/(clear_norm);
+       
+       //find maximum and second maximum scores
+       float max_score = smash_score;
+       char* prediction = "smash\n\n";
+       uint8_t len = 7;
+       
+       if(lift_score > max_score)
+       {
+           max_score = lift_score;
+           char* prediction = "lift\n\n";
+           uint8_t len = 6;
+       }
+       else
+       {
+          if(drop_score > max_score)
+          {
+              max_score = drop_score; 
+              char* prediction = "drop\n\n";
+              uint8_t len = 6;
+          } 
+          
+          else
+          {
+              if(clear_score > max_score)
+              {
+                   max_score = clear_score;
+                   char* prediction = "clear\n\n";
+                   uint8_t len = 7;
+              }
+          }
+        
+       }
+       
+       //find confidence level by finding percentage of max score compared to other scores.
+       
+       uint8_t confidence = 100*(max_score/(smash_score+lift_score+max_score+clear_score));
+       draw_result(prediction, len, confidence);
+       
+        //SEGGER_RTT_printf(0, "smash_norm = %d, lift_norm = %d, drop_norm = %d, clear_norm = %d\n", smash_norm, lift_norm, drop_norm, clear_norm);
+       // SEGGER_RTT_printf(0, "smash_score = %d, lift_score = %d, drop_score = %d, clear_score = %d\n", smash_score, lift_score, drop_score, clear_score);
+        //need to normalise somehow
+       // if(smash_score >lift_score 
+        
+        //reset flag for next shot
+        shot_detected_flag = false;
+    
+    }
 
 }
 

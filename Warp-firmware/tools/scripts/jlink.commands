@@ -1,5 +1,5 @@
 exec EnableRemarks
 unlock kinetis
-loadfile /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/armgcc/Warp/release/Warp.srec
+loadfile /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/armgcc/Warp/release/Warp.srec
 r
 go

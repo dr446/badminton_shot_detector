@@ -14,7 +14,7 @@ volatile uint8_t	inBuffer[32];
 volatile uint8_t	payloadBytes[32];
 
 
-
+uint8_t first_char_flag;
 
 /*
  *	Override Warp firmware's use of these pins and define new aliases.
@@ -99,6 +99,14 @@ int writeCommand_buf(uint8_t* commandByteBuf, uint8_t len)
 
 void draw_result(char* shot, uint8_t len, uint8_t confidence)
 {
+    
+	//Clear Screen & reset cursor
+	reset_cursor();
+	writeCommand(kSSD1331CommandCLEAR);
+	writeCommand(0x00);
+	writeCommand(0x00);
+	writeCommand(0x5F);
+	writeCommand(0x3F);
 
     uint8_t i;
     uint8_t x_cursor = 0;
@@ -132,7 +140,7 @@ void draw_result(char* shot, uint8_t len, uint8_t confidence)
 int
 devSSD1331init(void)
 {
-
+  first_char_flag = true;
 	/*
 	 *	Override Warp firmware's use of these pins.
 	 *

@@ -1,4 +1,4 @@
-# Install script for directory: /home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/armgcc/Warp
+# Install script for directory: /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/armgcc/Warp
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -35,5 +35,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/diya/Desktop/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/armgcc/Warp/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/armgcc/Warp/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
