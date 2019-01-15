@@ -140,7 +140,7 @@ void draw_result(char* shot, uint8_t len, uint8_t confidence)
 int
 devSSD1331init(void)
 {
-  first_char_flag = true;
+  
 	/*
 	 *	Override Warp firmware's use of these pins.
 	 *
@@ -248,9 +248,7 @@ devSSD1331init(void)
         
     SetFontSize(WH); // set tall font
     foreground(toRGB(0,255,0)); // set text colour
-    
-    char *shot_result = "s\n\n";
-    draw_result(shot_result, 3, 50);
+
 	
 	return 0;
 }

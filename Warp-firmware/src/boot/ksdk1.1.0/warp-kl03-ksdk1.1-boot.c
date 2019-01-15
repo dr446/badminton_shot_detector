@@ -46,15 +46,9 @@
 #include "SEGGER_RTT.h"
 #include "warp.h"
 
-
-#include "devMMA8451Q.h"
-#include "devAS7262.h"
-#include "devAS7263.h"
 #include "devSSD1331.h"
-#include "devINA219.h"
 #include "devMPU6050.h"
 #include "devINMP401.h"
-#include "adc_low_power.h"
 
 
 #define					kWarpConstantStringI2cFailure		"\rI2C failed, reg 0x%02x, code %d\n"
@@ -846,10 +840,7 @@ main(void)
 	/*
 	 *	Initialize all the sensors
 	 */
-	//initMMA8451Q(	0x1D	/* i2cAddress */,	&deviceMMA8451QState	);	
-	//initAS7262(	0x49	/* i2cAddress */,	&deviceAS7262State	);
-	//initAS7263(	0x49	/* i2cAddress */,	&deviceAS7263State	);
-   // initINA219( 0x40    /* i2cAddress */,   &deviceINA219State  );
+
     initMPU6050( 0x68    /* i2cAddress */,   &deviceMPU6050State  );
 	
 	disableSssupply();
@@ -865,13 +856,13 @@ main(void)
         
     //init ADC microphone
     devINMP401init();
-    /*
+    
     while(1){
         print_accelerations();
         OSA_TimeDelay(100);
-    }*/
+    }
     
-    badminton_shot_detector_routine();
+    //badminton_shot_detector_routine();
     
 	return 0;
 }
@@ -912,15 +903,15 @@ void badminton_shot_detector_routine()
         float drop_score=0;
         float clear_score=0;
         //normalisation values
-        uint16_t wave_norm = 0;
-        uint16_t smash_norm = 0;
-        uint16_t lift_norm = 0;
-        uint16_t drop_norm = 0;
-        uint16_t clear_norm = 0;
+        float wave_norm = 0;
+        float smash_norm = 0;
+        float lift_norm = 0;
+        float drop_norm = 0;
+        float clear_norm = 0;
         
         for(int i = 0; i<10; i++)
         {
-            for(int j = 0; j<3; j++)
+            for(int j = 1; j<3; j++)
             {
                smash_score += waveform_buffer[i][j]*smash[i][j];
                lift_score += waveform_buffer[i][j]*lift[i][j];
@@ -932,15 +923,17 @@ void badminton_shot_detector_routine()
                smash_norm = smash[i][j]*smash[i][j];
                drop_norm = drop[i][j]*drop[i][j]; 
                clear_norm = clear[i][j]*clear[i][j];
-               
             }
         }
-        //SEGGER_RTT_printf(0, "smash_score = %d, lift_score = %d, drop_score = %d, clear_score = %d\n", smash_score, lift_score, drop_score, clear_score);
+        
+        SEGGER_RTT_printf(0, "smash_norm = %d, lift_norm = %d, drop_norm = %d, clear_norm = %d\n", (uint64_t)smash_norm, (uint64_t)lift_norm, (uint64_t)drop_norm, (uint64_t)clear_norm);
+        
+        //SEGGER_RTT_printf(0, "smash_score = %d, lift_score = %d, drop_score = %d, clear_score = %d\n", (uint32_t)smash_score, (uint32_t)lift_score, (uint32_t)drop_score, (uint32_t)clear_score);
        smash_score = smash_score/(smash_norm);
         lift_score = lift_score/(lift_norm);
         drop_score = drop_score/(drop_norm);
         clear_score = clear_score/(clear_norm);
-       
+        //SEGGER_RTT_printf(0, "smash_score = %d, lift_score = %d, drop_score = %d, clear_score = %d\n", (uint32_t)smash_score, (uint32_t)lift_score, (uint32_t)drop_score, (uint32_t)clear_score);
        //find maximum and second maximum scores
        float max_score = smash_score;
        char* prediction = "smash\n\n";

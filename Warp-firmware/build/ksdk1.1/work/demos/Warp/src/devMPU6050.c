@@ -59,8 +59,16 @@ uint8_t readSensorRegisterMPU6050(uint8_t deviceRegister)
 	cmdBuf[0] = deviceRegister;
 	uint32_t receive_1;
     
-
-    
+     uint8_t 	sendBuf[2]	= {0x6B, 0x0};
+    returnValue = I2C_DRV_MasterSendDataBlocking(
+							0,
+							&slave,
+							NULL,
+							0,
+							sendBuf,
+							2,
+							500);
+	OSA_TimeDelay(15);
 	returnValue = I2C_DRV_MasterReceiveDataBlocking(
 							0 /* I2C peripheral instance */,
 							&slave,
@@ -68,7 +76,7 @@ uint8_t readSensorRegisterMPU6050(uint8_t deviceRegister)
 							1,
 							&receive_1,
 							1,
-							100 /* timeout in milliseconds */);
+							500 /* timeout in milliseconds */);
 	
 	if (returnValue == kStatus_I2C_Success)
 	{
@@ -77,7 +85,7 @@ uint8_t readSensorRegisterMPU6050(uint8_t deviceRegister)
 	else
 	{
 		SEGGER_RTT_printf(0, 0, 0x01, returnValue);
-       // SEGGER_RTT_printf(0, "\rfail\n");
+        SEGGER_RTT_printf(0, "\rfail\n");
 		//return kWarpStatusDeviceCommunicationFailed;
 	}
 	
@@ -116,6 +124,7 @@ void print_accelerations()
 uint16_t get_acc_x()
 {
     uint16_t x_acc;
+    OSA_TimeDelay(15);
     x_acc = readSensorRegisterMPU6050(0x3B);
     OSA_TimeDelay(15);
     x_acc = x_acc <<8| readSensorRegisterMPU6050(0x3C);
@@ -125,6 +134,7 @@ uint16_t get_acc_x()
 uint16_t get_acc_y()
 {
     uint16_t y_acc;
+    OSA_TimeDelay(15);
     y_acc = readSensorRegisterMPU6050(0x3D);
     OSA_TimeDelay(15);
     y_acc = y_acc <<8| readSensorRegisterMPU6050(0x3E);
@@ -134,6 +144,7 @@ uint16_t get_acc_y()
 uint16_t get_acc_z()
 {
     uint16_t z_acc;
+    OSA_TimeDelay(15);
     z_acc = readSensorRegisterMPU6050(0x3F);
     OSA_TimeDelay(15);
     z_acc = z_acc <<8| readSensorRegisterMPU6050(0x40);
@@ -206,7 +217,7 @@ void initMPU6050(const uint8_t i2cAddress, WarpI2CDeviceState volatile *  device
 							0,
 							sendBuf,
 							2,
-							100);
+							500);
    
 	return;
 	
