@@ -84,7 +84,7 @@ uint8_t readSensorRegisterMPU6050(uint8_t deviceRegister)
 	}
 	else
 	{
-		SEGGER_RTT_printf(0, 0, 0x01, returnValue);
+		//SEGGER_RTT_printf(0, 0, 0x01, returnValue);
         SEGGER_RTT_printf(0, "\rfail\n");
 		//return kWarpStatusDeviceCommunicationFailed;
 	}
@@ -207,7 +207,7 @@ void initMPU6050(const uint8_t i2cAddress, WarpI2CDeviceState volatile *  device
 	i2c_device_t slave =
 	{
 		.address = deviceMPU6050State.i2cAddress,
-		.baudRate_kbps = 1
+		.baudRate_kbps = 2
 	};
 	
 	returnValue = I2C_DRV_MasterSendDataBlocking(

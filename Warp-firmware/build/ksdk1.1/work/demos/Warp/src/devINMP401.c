@@ -39,63 +39,16 @@ bool shot_detected_flag;
 
 
 
-
-
-
-
-
-
-
-///////////////////////////////////////////////////////////////////////////////
-//  Code
-///////////////////////////////////////////////////////////////////////////////
-
-/* enable the trigger source of LPTimer */
 void init_trigger_source(uint32_t adcInstance)
-{/*
-    lptmr_user_config_t lptmrUserConfig =
-    {
-        .timerMode = kLptmrTimerModeTimeCounter,
-        .freeRunningEnable = false,
-        .prescalerEnable = false, // bypass perscaler
-        .prescalerClockSource = kClockLptmrSrcLpoClk, // use LPO, 1KHz
-        .isInterruptEnabled = false
-    };
-
-    // Init LPTimer driver
-    LPTMR_DRV_Init(0, &lptmrUserConfig, &gLPTMRState);
-
-    // Set the LPTimer period
-    LPTMR_DRV_SetTimerPeriodUs(0, LPTMR_COMPARE_VALUE);
-
-    // Start the LPTimer
-    LPTMR_DRV_Start(0);
-*/
-    // Configure SIM for ADC hw trigger source selection
+{
     SIM_HAL_SetAdcAlternativeTriggerCmd(gSimBaseAddr[0], adcInstance, true);
-    //SIM_HAL_SetAdcPreTriggerMode(gSimBaseAddr[0], adcInstance, kSimAdcPretrgselA);
-    //SIM_HAL_SetAdcTriggerMode(gSimBaseAddr[0], adcInstance, kSimAdcTrgSelLptimer);
+
 }
-
-
-/*Required Procedures: (Obtained from page 416 of reference manual: https://www.nxp.com/docs/en/reference-manual/KL03P24M48SF0RM.pdf
-1) Calibrate ADC
-2) Select input clock source and divide ratio, select sample time and low-power config. This is done by updating configuration register, CFG.
-3) Select conversion trigger, SC2 reg
-4) Select whether conversions are continuous or singular (SC3 reg).
-5) enable or disable conversion complete interrupts and select input channel to perform conversions (SC1:SC1n).
-*/
 
 
 void Microphone_ISR()
 {
     shot_detected_flag = true; 
-     //store acceleration values into a buffer  
-    //SEGGER_RTT_printf(0, "ISR entered! WHoo!\n");  
-    //copy contents of acceleration buffer into shot buffer.
-    
-    
-    
 }
 
 
@@ -185,8 +138,8 @@ int32_t init_adc(uint32_t instance)
     // Install Callback function into ISR
     adc16_hw_cmp_config_t hardware_compare;
     
-    hardware_compare.cmpValue1 = 100;
-    hardware_compare.cmpValue2 = 200;
+    hardware_compare.cmpValue1 =100;
+    hardware_compare.cmpValue2 = 145;
     hardware_compare.cmpRangeMode = 2;
     
     ADC16_DRV_EnableHwCmp(ADC_0, &hardware_compare);
@@ -219,14 +172,12 @@ int32_t init_adc(uint32_t instance)
 
 int devINMP401init(void)
 {
-    SEGGER_RTT_printf(0, "init mic reached\n");
+   
    //initialise
+   
    int32_t err = init_adc(ADC_0);
-   //set up trigger source
-   //init_trigger_source(ADC_0); 
     
     uint8_t flag = ADC16_DRV_GetChnFlag(ADC_0, CHANNEL_MIC, 0);
-    SEGGER_RTT_printf(0, "\rflag = %d\n",  flag);  
 
 }
 

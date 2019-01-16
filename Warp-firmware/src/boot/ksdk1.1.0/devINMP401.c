@@ -138,8 +138,8 @@ int32_t init_adc(uint32_t instance)
     // Install Callback function into ISR
     adc16_hw_cmp_config_t hardware_compare;
     
-    hardware_compare.cmpValue1 = 100;
-    hardware_compare.cmpValue2 = 200;
+    hardware_compare.cmpValue1 =100;
+    hardware_compare.cmpValue2 = 145;
     hardware_compare.cmpRangeMode = 2;
     
     ADC16_DRV_EnableHwCmp(ADC_0, &hardware_compare);

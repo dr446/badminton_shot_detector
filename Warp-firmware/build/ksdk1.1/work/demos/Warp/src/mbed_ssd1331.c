@@ -1,5 +1,5 @@
 
-//this file was taken from os.mbed.com, full link: https://os.mbed.com/users/star297/code/ssd1331/file/4385fd242db0/ssd1331.cpp/
+//this file was taken from os.mbed.com (and adapted), full link: https://os.mbed.com/users/star297/code/ssd1331/file/4385fd242db0/ssd1331.cpp/
 
 
 #include "mbed_ssd1331.h"

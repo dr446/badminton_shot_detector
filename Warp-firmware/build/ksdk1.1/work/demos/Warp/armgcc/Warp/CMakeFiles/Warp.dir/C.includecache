@@ -916,8 +916,6 @@ SEGGER_RTT.h
 warp.h
 /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/warp.h
 
-/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.h
-
 /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.c
 stdlib.h
 -
@@ -948,8 +946,6 @@ SEGGER_RTT.h
 warp.h
 /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/warp.h
 
-/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.h
-
 /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS726x.h
 
 /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.c
@@ -979,8 +975,6 @@ SEGGER_RTT.h
 /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT.h
 warp.h
 /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/warp.h
-
-/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.h
 
 /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINMP401.c
 stdint.h
@@ -1035,8 +1029,6 @@ SEGGER_RTT.h
 /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT.h
 warp.h
 /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/warp.h
-
-/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMMA8451Q.h
 
 /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMPU6050.c
 stdlib.h
@@ -1145,22 +1137,12 @@ SEGGER_RTT.h
 /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT.h
 warp.h
 /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/warp.h
-devMMA8451Q.h
-/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMMA8451Q.h
-devAS7262.h
-/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.h
-devAS7263.h
-/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.h
 devSSD1331.h
 /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devSSD1331.h
-devINA219.h
-/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.h
 devMPU6050.h
 /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMPU6050.h
 devINMP401.h
 /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINMP401.h
-adc_low_power.h
-/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.h
 
 /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/warp-kl03-ksdk1.1-powermodes.c
 stdint.h

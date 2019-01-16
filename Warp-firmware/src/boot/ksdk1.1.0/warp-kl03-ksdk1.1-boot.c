@@ -856,13 +856,13 @@ main(void)
         
     //init ADC microphone
     devINMP401init();
-    
+    /*
     while(1){
         print_accelerations();
         OSA_TimeDelay(100);
-    }
+    }*/
     
-    //badminton_shot_detector_routine();
+    badminton_shot_detector_routine();
     
 	return 0;
 }
@@ -870,16 +870,21 @@ main(void)
 
 
 
+
+
+
+
+
 void badminton_shot_detector_routine()
 {
     //reference shot waveforms
-    uint16_t smash[10][3] = {{ 12532 , 58892 , 8452 },{ 12304 , 58532 , 11020 }, { 10712 , 59468 , 11088 }, { 11840 , 57692 , 10364 }, { 9680 , 54884 , 8716 }, { 24252 , 52672 , 7632 }, { 1484 , 49688 , 63320 }, { 63148 , 49424 , 63832 }, { 62776 , 376 , 2444 }, { 7372 , 5072 , 23556 }};
+    uint16_t smash[10][3] = {{ 15232 , 1872 , 8712 },{ 14116 , 1504 , 8868 }, { 14336 , 1456 , 9692 }, { 13800 , 1144 , 9600 }, { 14484 , 1572 , 8680 }, { 15564 , 1264 , 8784 }, { 13280 , 3288 , 6544 }, { 17068 , 4212 , 7352 }, { 17664 , 5460 , 8840 }, { 12528 , 54124 , 54700 }};
     
-    uint16_t lift[10][3] = {{ 10572 , 13188 , 62064 },{ 10660 , 12084 , 61724 }, { 11432 , 11476 , 61168 }, { 13108 , 10340 , 58188 }, { 10908 , 11120 , 55276 }, { 12700 , 11136 , 60136 }, { 9556 , 64348 , 55540 }, { 10484 , 61340 , 54612 }, { 11968 , 64416 , 55596 }, { 14036 , 2504 , 55996 }};
+    uint16_t lift[10][3] = {{ 13952 , 8920 , 5324 },{ 13628 , 6172 , 6180 }, { 13892 , 6148 , 4188 }, { 13896 , 10052 , 152 }, { 12368 , 11604 , 63848 }, { 9164 , 13800 , 63592 }, { 6364 , 16344 , 12 }, { 4584 , 16452 , 3096 }, { 292 , 15568 , 61828 }, { 20872 , 32756 , 3468 }};
     
-    uint16_t drop[10][3] = {{ 11140 , 12308 , 68 },{ 11364 , 11260 , 796 }, { 14572 , 10260 , 65204 }, { 15704 , 7388 , 62308 }, { 14748 , 1324 , 58120 }, { 12772 , 64772 , 55904 }, { 17204 , 60524 , 57344 }, { 12192 , 60104 , 64836 }, { 10952 , 60292 , 8776 }, { 9920 , 63392 , 9556 }};
+    uint16_t drop[10][3] = {{ 12552 , 6716 , 61900 },{ 14952 , 4252 , 65176 }, { 15828 , 4072 , 2644 }, { 16124 , 3172 , 3060 }, { 16040 , 3236 , 2384 }, { 16268 , 3516 , 1756 }, { 16208 , 3348 , 1792 }, { 16104 , 3588 , 872 }, { 15508 , 4100 , 2980 }, { 13720 , 1808 , 61108 }};
     
-    uint16_t clear[10][3] = {{ 59136 , 50816 , 63496 },{ 59088 , 50580 , 63364 }, { 58932 , 50756 , 64052 }, { 58572 , 50556 , 59828 }, { 58344 , 49676 , 848 }, { 61964 , 52744 , 5316 }, { 64864 , 54772 , 8792 }, { 6216 , 1112 , 12380 }, { 11692 , 9912 , 12432 }, { 14224 , 12048 , 8712 }};
+    uint16_t clear[10][3] = {{ 3804 , 50732 , 4232 },{ 2960 , 49052 , 4028 }, { 1496 , 48016 , 1108 }, { 64960 , 50468 , 61028 }, { 62300 , 51440 , 60964 }, { 60644 , 51512 , 61152 }, { 60348 , 51340 , 62648 }, { 58732 , 52320 , 60420 }, { 57052 , 52876 , 59932 }, { 54868 , 55376 , 62460 }};
     
     
     while(1)
@@ -894,7 +899,7 @@ void badminton_shot_detector_routine()
         
         for(int i = 0; i <10; i++)
         {
-            SEGGER_RTT_printf(0, "waveform[%d] = %d\n", i, waveform_buffer[i][1]);
+            SEGGER_RTT_printf(0, "[%d] = %d, %d, %d\n",i, waveform_buffer[i][0], waveform_buffer[i][1], waveform_buffer[i][2]);
         }
            
         //perform cross correlation
@@ -911,71 +916,63 @@ void badminton_shot_detector_routine()
         
         for(int i = 0; i<10; i++)
         {
-            for(int j = 1; j<3; j++)
+            for(int j = 0; j<3; j++)
             {
-               smash_score += waveform_buffer[i][j]*smash[i][j];
-               lift_score += waveform_buffer[i][j]*lift[i][j];
-               drop_score += waveform_buffer[i][j]*drop[i][j];
-               clear_score += waveform_buffer[i][j]*clear[i][j];
+               smash_score += (0.01*waveform_buffer[i][j])*(0.01*smash[i][j]);
+               lift_score += (0.01*waveform_buffer[i][j])*(0.01*lift[i][j]);
+               drop_score += (0.01*waveform_buffer[i][j])*(0.01*drop[i][j]);
+               clear_score += (0.01*waveform_buffer[i][j])*(0.01*clear[i][j]);
                
-               wave_norm = waveform_buffer[i][j]*waveform_buffer[i][j];
-               lift_norm = lift[i][j]*lift[i][j];
-               smash_norm = smash[i][j]*smash[i][j];
-               drop_norm = drop[i][j]*drop[i][j]; 
-               clear_norm = clear[i][j]*clear[i][j];
+               wave_norm = (0.01*waveform_buffer[i][j])*(0.01*waveform_buffer[i][j]);
+               lift_norm = (0.01*lift[i][j])*(0.01*lift[i][j]);
+               smash_norm = (0.01*smash[i][j])*(0.01*smash[i][j]);
+               drop_norm = (0.01*drop[i][j])*(0.01*drop[i][j]); 
+               clear_norm = (0.01*clear[i][j])*(0.01*clear[i][j]);
+               
             }
+            
         }
         
-        SEGGER_RTT_printf(0, "smash_norm = %d, lift_norm = %d, drop_norm = %d, clear_norm = %d\n", (uint64_t)smash_norm, (uint64_t)lift_norm, (uint64_t)drop_norm, (uint64_t)clear_norm);
-        
-        //SEGGER_RTT_printf(0, "smash_score = %d, lift_score = %d, drop_score = %d, clear_score = %d\n", (uint32_t)smash_score, (uint32_t)lift_score, (uint32_t)drop_score, (uint32_t)clear_score);
-       smash_score = smash_score/(smash_norm);
-        lift_score = lift_score/(lift_norm);
-        drop_score = drop_score/(drop_norm);
-        clear_score = clear_score/(clear_norm);
-        //SEGGER_RTT_printf(0, "smash_score = %d, lift_score = %d, drop_score = %d, clear_score = %d\n", (uint32_t)smash_score, (uint32_t)lift_score, (uint32_t)drop_score, (uint32_t)clear_score);
-       //find maximum and second maximum scores
+
+       //find maximum score
        float max_score = smash_score;
        char* prediction = "smash\n\n";
        uint8_t len = 7;
-       
+       SEGGER_RTT_printf(0, "s %d\n", (uint64_t)max_score);
        if(lift_score > max_score)
        {
            max_score = lift_score;
-           char* prediction = "lift\n\n";
-           uint8_t len = 6;
+           prediction = "lift\n\n";
+           len = 6;
+           SEGGER_RTT_printf(0, "l %d\n", (uint64_t)max_score);
        }
-       else
+
+       if(drop_score > max_score)
        {
-          if(drop_score > max_score)
-          {
-              max_score = drop_score; 
-              char* prediction = "drop\n\n";
-              uint8_t len = 6;
-          } 
+           max_score = drop_score; 
+           prediction = "drop\n\n";
+           len = 6;
+           SEGGER_RTT_printf(0, "d %d\n", (uint64_t)max_score);
+       } 
           
-          else
-          {
-              if(clear_score > max_score)
-              {
-                   max_score = clear_score;
-                   char* prediction = "clear\n\n";
-                   uint8_t len = 7;
-              }
-          }
-        
+       if(clear_score > max_score)
+       {
+           max_score = clear_score;
+           prediction = "clear\n\n";
+           len = 7;
+           SEGGER_RTT_printf(0, "c %d\n", (uint64_t)max_score);
        }
+          
        
        //find confidence level by finding percentage of max score compared to other scores.
        
        uint8_t confidence = 100*(max_score/(smash_score+lift_score+max_score+clear_score));
-       draw_result(prediction, len, confidence);
        
-        //SEGGER_RTT_printf(0, "smash_norm = %d, lift_norm = %d, drop_norm = %d, clear_norm = %d\n", smash_norm, lift_norm, drop_norm, clear_norm);
-       // SEGGER_RTT_printf(0, "smash_score = %d, lift_score = %d, drop_score = %d, clear_score = %d\n", smash_score, lift_score, drop_score, clear_score);
-        //need to normalise somehow
-       // if(smash_score >lift_score 
-        
+       if(confidence>50)
+       {   
+           SEGGER_RTT_printf(0, prediction);
+           draw_result(prediction, len, confidence);
+       }
         //reset flag for next shot
         shot_detected_flag = false;
     

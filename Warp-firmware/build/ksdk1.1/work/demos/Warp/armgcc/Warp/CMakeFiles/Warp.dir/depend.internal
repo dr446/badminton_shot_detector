@@ -366,12 +366,7 @@ CMakeFiles/Warp.dir/home/diya/Documents/badminton_shot_detector/Warp-firmware/bu
  ../../../../platform/utilities/inc/fsl_misc_utilities.h
  /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT.h
  /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT_Conf.h
- /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.h
- /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.h
- /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.h
- /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.h
  /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINMP401.h
- /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMMA8451Q.h
  /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMPU6050.h
  /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devSSD1331.h
  /home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/warp-kl03-ksdk1.1-boot.c
