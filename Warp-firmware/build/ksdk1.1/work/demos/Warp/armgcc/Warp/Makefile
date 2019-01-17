@@ -204,114 +204,6 @@ home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/dem
 	$(MAKE) -f CMakeFiles/Warp.dir/build.make CMakeFiles/Warp.dir/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT_printf.c.s
 .PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT_printf.c.s
 
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.obj: home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj
-
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.obj
-
-# target to build an object file
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj:
-	$(MAKE) -f CMakeFiles/Warp.dir/build.make CMakeFiles/Warp.dir/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.obj
-
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.i: home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.i
-
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.i
-
-# target to preprocess a source file
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.i:
-	$(MAKE) -f CMakeFiles/Warp.dir/build.make CMakeFiles/Warp.dir/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.i
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.i
-
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.s: home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.s
-
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.s
-
-# target to generate assembly for a file
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.s:
-	$(MAKE) -f CMakeFiles/Warp.dir/build.make CMakeFiles/Warp.dir/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.s
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.c.s
-
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.obj: home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.c.obj
-
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.obj
-
-# target to build an object file
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.c.obj:
-	$(MAKE) -f CMakeFiles/Warp.dir/build.make CMakeFiles/Warp.dir/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.c.obj
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.c.obj
-
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.i: home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.c.i
-
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.i
-
-# target to preprocess a source file
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.c.i:
-	$(MAKE) -f CMakeFiles/Warp.dir/build.make CMakeFiles/Warp.dir/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.c.i
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.c.i
-
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.s: home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.c.s
-
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.s
-
-# target to generate assembly for a file
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.c.s:
-	$(MAKE) -f CMakeFiles/Warp.dir/build.make CMakeFiles/Warp.dir/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.c.s
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.c.s
-
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.obj: home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.c.obj
-
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.obj
-
-# target to build an object file
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.c.obj:
-	$(MAKE) -f CMakeFiles/Warp.dir/build.make CMakeFiles/Warp.dir/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.c.obj
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.c.obj
-
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.i: home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.c.i
-
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.i
-
-# target to preprocess a source file
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.c.i:
-	$(MAKE) -f CMakeFiles/Warp.dir/build.make CMakeFiles/Warp.dir/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.c.i
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.c.i
-
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.s: home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.c.s
-
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.s
-
-# target to generate assembly for a file
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.c.s:
-	$(MAKE) -f CMakeFiles/Warp.dir/build.make CMakeFiles/Warp.dir/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.c.s
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.c.s
-
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.obj: home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.c.obj
-
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.obj
-
-# target to build an object file
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.c.obj:
-	$(MAKE) -f CMakeFiles/Warp.dir/build.make CMakeFiles/Warp.dir/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.c.obj
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.c.obj
-
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.i: home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.c.i
-
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.i
-
-# target to preprocess a source file
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.c.i:
-	$(MAKE) -f CMakeFiles/Warp.dir/build.make CMakeFiles/Warp.dir/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.c.i
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.c.i
-
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.s: home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.c.s
-
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.s
-
-# target to generate assembly for a file
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.c.s:
-	$(MAKE) -f CMakeFiles/Warp.dir/build.make CMakeFiles/Warp.dir/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.c.s
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.c.s
-
 home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINMP401.obj: home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINMP401.c.obj
 
 .PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINMP401.obj
@@ -338,33 +230,6 @@ home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/dem
 home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINMP401.c.s:
 	$(MAKE) -f CMakeFiles/Warp.dir/build.make CMakeFiles/Warp.dir/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINMP401.c.s
 .PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINMP401.c.s
-
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMMA8451Q.obj: home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMMA8451Q.c.obj
-
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMMA8451Q.obj
-
-# target to build an object file
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMMA8451Q.c.obj:
-	$(MAKE) -f CMakeFiles/Warp.dir/build.make CMakeFiles/Warp.dir/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMMA8451Q.c.obj
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMMA8451Q.c.obj
-
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMMA8451Q.i: home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMMA8451Q.c.i
-
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMMA8451Q.i
-
-# target to preprocess a source file
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMMA8451Q.c.i:
-	$(MAKE) -f CMakeFiles/Warp.dir/build.make CMakeFiles/Warp.dir/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMMA8451Q.c.i
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMMA8451Q.c.i
-
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMMA8451Q.s: home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMMA8451Q.c.s
-
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMMA8451Q.s
-
-# target to generate assembly for a file
-home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMMA8451Q.c.s:
-	$(MAKE) -f CMakeFiles/Warp.dir/build.make CMakeFiles/Warp.dir/home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMMA8451Q.c.s
-.PHONY : home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMMA8451Q.c.s
 
 home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMPU6050.obj: home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMPU6050.c.obj
 
@@ -663,24 +528,9 @@ help:
 	@echo "... home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT_printf.obj"
 	@echo "... home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT_printf.i"
 	@echo "... home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/SEGGER_RTT_printf.s"
-	@echo "... home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.obj"
-	@echo "... home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.i"
-	@echo "... home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/adc_low_power.s"
-	@echo "... home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.obj"
-	@echo "... home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.i"
-	@echo "... home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7262.s"
-	@echo "... home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.obj"
-	@echo "... home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.i"
-	@echo "... home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devAS7263.s"
-	@echo "... home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.obj"
-	@echo "... home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.i"
-	@echo "... home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINA219.s"
 	@echo "... home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINMP401.obj"
 	@echo "... home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINMP401.i"
 	@echo "... home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devINMP401.s"
-	@echo "... home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMMA8451Q.obj"
-	@echo "... home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMMA8451Q.i"
-	@echo "... home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMMA8451Q.s"
 	@echo "... home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMPU6050.obj"
 	@echo "... home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMPU6050.i"
 	@echo "... home/diya/Documents/badminton_shot_detector/Warp-firmware/build/ksdk1.1/work/demos/Warp/src/devMPU6050.s"

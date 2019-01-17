@@ -93,6 +93,8 @@ uint8_t readSensorRegisterMPU6050(uint8_t deviceRegister)
 	
 }
 
+
+//function for debugging purposes that simply reads from the acceleration registers of the MPU-6050, formats them and then prints them.
 void print_accelerations()
 {
     
@@ -121,6 +123,8 @@ void print_accelerations()
         
 }
 
+
+//The three functions below read from the appropriate acceleration registers and return the acceleration values for the x, y and z axis respectively.
 uint16_t get_acc_x()
 {
     uint16_t x_acc;
@@ -152,11 +156,10 @@ uint16_t get_acc_z()
 }
 
 
-
-
+//This function updates the circular FIFO buffer in which the latest acceleration values are stored. The head is used to mark the position of where the latest variable should go. This means the oldest values of the buffer are overwritten as new values are received. Thus, the circular buffer always has the latest variables and the order in which they are received are indicated by the position of the head.
 void update_circular_buffer()
 {
-
+    
     acceleration_circular_buffer[head][0] = get_acc_x();
     acceleration_circular_buffer[head][1] = get_acc_y();
     acceleration_circular_buffer[head][2] = get_acc_z();
@@ -172,7 +175,7 @@ void update_circular_buffer()
 }
 
 
-
+//This function is called just after a shot has been detected. It updates the waveform buffer with the latest values of the circular buffer.
 void update_shot_buffer()
 {
     for(int i = 0; i<10; i++)

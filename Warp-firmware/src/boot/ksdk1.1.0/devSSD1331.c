@@ -97,11 +97,13 @@ int writeCommand_buf(uint8_t* commandByteBuf, uint8_t len)
 }
 
 
+
+//This function takes in the shot name and the length of the name, as well as the confidence of the prediction and prints them onto the OLED screen.
 void draw_result(char* shot, uint8_t len, uint8_t confidence)
 {
     
 	//Clear Screen & reset cursor
-	reset_cursor();
+	reset_cursor(); 
 	writeCommand(kSSD1331CommandCLEAR);
 	writeCommand(0x00);
 	writeCommand(0x00);
@@ -110,12 +112,13 @@ void draw_result(char* shot, uint8_t len, uint8_t confidence)
 
     uint8_t i;
     uint8_t x_cursor = 0;
-    uint8_t y_cursor = 10;
+    uint8_t y_cursor = 10; //these cursors are to determine where to place each char.
     int dig[3];
     dig[0] = confidence/10 + 48;
     dig[1] = confidence%10 + 48;
     dig[2] = '%';
     
+    //print each char.    
     for( i=0; i<len; i++) {
         PutChar(x_cursor, y_cursor, (int)*(shot + i));
         x_cursor += X_width;
@@ -126,6 +129,7 @@ void draw_result(char* shot, uint8_t len, uint8_t confidence)
     
     i = 0;
     
+    //print condidence level, then percentage sign.
     for( i=0; i<3; i++) {
         PutChar(x_cursor, y_cursor, dig[i]);
         x_cursor += X_width;
@@ -137,8 +141,7 @@ void draw_result(char* shot, uint8_t len, uint8_t confidence)
 
 
 
-int
-devSSD1331init(void)
+int devSSD1331init(void)
 {
   
 	/*
@@ -228,15 +231,8 @@ devSSD1331init(void)
 	writeCommand(0x00);
 	writeCommand(0x5F);
 	writeCommand(0x3F);
-//	SEGGER_RTT_WriteString(0, "\r\n\tDone with screen clear...\n");
 
 
-
-	/*
-	 *	Read the manual for the SSD1331 (SSD1331_1.2.pdf) to figure
-	 *	out how to fill the entire screen with the brightest shade
-	 *	of green.
-	 */
 
     //set to maximum current
     writeCommand(kSSD1331CommandMASTERCURRENT);	// 0x87
@@ -244,8 +240,7 @@ devSSD1331init(void)
     
     
     
-    //attempt to use the mbed library to write some text
-        
+    //Use the mbed library to write the text "hello" at the end of initialisation
     SetFontSize(WH); // set tall font
     foreground(toRGB(0,255,0)); // set text colour
 

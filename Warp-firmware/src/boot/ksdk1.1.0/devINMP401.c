@@ -46,12 +46,18 @@ void init_trigger_source(uint32_t adcInstance)
 }
 
 
+
+
+//This is the microphone ISR that triggers when a noise is heard that is above the threshold. It raises a flag that a shor has been detected.
 void Microphone_ISR()
 {
     shot_detected_flag = true; 
 }
 
 
+
+
+//This code was mostly taken from Kinetic's ADC low_power example, but has been altered to use the hardware comparator as the interrupt trigger.
 
 // Define array to keep run-time callback set by application
 void (* volatile g_AdcTestCallback[HW_ADC_INSTANCE_COUNT][HW_ADC_SC1n_COUNT])(void);
@@ -135,17 +141,16 @@ int32_t init_adc(uint32_t instance)
     adcUserConfig.clkSrcMode = kAdcClkSrcOfAsynClk;
     ADC16_DRV_Init(instance, &adcUserConfig);
 
-    // Install Callback function into ISR
-    adc16_hw_cmp_config_t hardware_compare;
     
+    
+    // Install hardware comparator.
+    adc16_hw_cmp_config_t hardware_compare;
+    //thresholds set experimentally.
     hardware_compare.cmpValue1 =100;
     hardware_compare.cmpValue2 = 145;
     hardware_compare.cmpRangeMode = 2;
-    
     ADC16_DRV_EnableHwCmp(ADC_0, &hardware_compare);
-    
-    
-    //ADC16_HAL_SetHwTriggerCmd(ADC_0, 1);
+
     
     // Install Callback function into ISR
     ADC_TEST_InstallCallback(ADC_0, CHANNEL_0, Microphone_ISR);
@@ -173,7 +178,7 @@ int32_t init_adc(uint32_t instance)
 int devINMP401init(void)
 {
    
-   //initialise
+   //initialise ADC
    
    int32_t err = init_adc(ADC_0);
     

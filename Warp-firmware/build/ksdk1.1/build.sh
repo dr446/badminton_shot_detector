@@ -12,16 +12,10 @@
 	cp ../../src/boot/ksdk1.1.0/warp-kl03-ksdk1.1-boot.c		work/demos/Warp/src/
 	cp ../../src/boot/ksdk1.1.0/warp-kl03-ksdk1.1-powermodes.c	work/demos/Warp/src/
 	cp ../../src/boot/ksdk1.1.0/warp.h				work/demos/Warp/src/
-	cp ../../src/boot/ksdk1.1.0/devMMA8451Q.*			work/demos/Warp/src/
-	cp ../../src/boot/ksdk1.1.0/devAS7262.*				work/demos/Warp/src/
-	cp ../../src/boot/ksdk1.1.0/devAS7263.*				work/demos/Warp/src/
-	cp ../../src/boot/ksdk1.1.0/devAS726x.*				work/demos/Warp/src/
 	cp ../../src/boot/ksdk1.1.0/devSSD1331.*			work/demos/Warp/src/
 	cp ../../src/boot/ksdk1.1.0/mbed_ssd1331.*			work/demos/Warp/src/
-	cp ../../src/boot/ksdk1.1.0/devINA219.*			    work/demos/Warp/src/
 	cp ../../src/boot/ksdk1.1.0/devMPU6050.*			work/demos/Warp/src/
     cp ../../src/boot/ksdk1.1.0/devINMP401.*			work/demos/Warp/src/
-    cp ../../src/boot/ksdk1.1.0/adc_low_power.*			work/demos/Warp/src/
 	cp ../../src/boot/ksdk1.1.0/CMakeLists.txt			work/demos/Warp/armgcc/Warp/
 	cp ../../src/boot/ksdk1.1.0/startup_MKL03Z4.S	    work/platform/startup/MKL03Z4/gcc/startup_MKL03Z4.S
 	cp ../../src/boot/ksdk1.1.0/gpio_pins.c				work/boards/Warp

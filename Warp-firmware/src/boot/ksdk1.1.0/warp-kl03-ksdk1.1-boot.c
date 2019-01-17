@@ -820,14 +820,6 @@ main(void)
 
 
 
-
-	/*
-	 *	Switch CPU to Very Low Power Run (VLPR) mode
-	 */
-	//warpSetLowPowerMode(kWarpPowerModeVLPR, 0);
-
-
-
 	/*
 	 *	Initialize the GPIO pins with the appropriate pull-up, etc.,
 	 *	defined in the inputPins and outputPins arrays (gpio_pins.c).
@@ -835,33 +827,33 @@ main(void)
 	 *	See also Section 30.3.3 GPIO Initialization of KSDK13APIRM.pdf
 	 */
 	GPIO_DRV_Init(inputPins  /* input pins */, outputPins  /* output pins */);
+	
+	devSSD1331init();
+	
 	//lowPowerPinStates();
     enableI2Cpins(5);
 	/*
 	 *	Initialize all the sensors
 	 */
-
+    
+    
     initMPU6050( 0x68    /* i2cAddress */,   &deviceMPU6050State  );
 	
 	disableSssupply();
-    
-    
-   uint8_t who_am_I = readSensorRegisterMPU6050(0x75);
-   SEGGER_RTT_printf(0, "who_am_I = %d\n", who_am_I);
-   uint8_t temp = readSensorRegisterMPU6050(0x42);
-   SEGGER_RTT_printf(0, "temp = %d\n", temp);
-   //initialise OLED display
-   devSSD1331init();
-    
+
         
-    //init ADC microphone
+    //init microphone and ADC comparator interrupt generator.
     devINMP401init();
+    
+    //this code is for debugging purposes.
     /*
     while(1){
         print_accelerations();
         OSA_TimeDelay(100);
     }*/
     
+    
+    //enter the main badminton shot detector system routine.
     badminton_shot_detector_routine();
     
 	return 0;
@@ -878,83 +870,90 @@ main(void)
 void badminton_shot_detector_routine()
 {
     //reference shot waveforms
-    uint16_t smash[10][3] = {{ 15232 , 1872 , 8712 },{ 14116 , 1504 , 8868 }, { 14336 , 1456 , 9692 }, { 13800 , 1144 , 9600 }, { 14484 , 1572 , 8680 }, { 15564 , 1264 , 8784 }, { 13280 , 3288 , 6544 }, { 17068 , 4212 , 7352 }, { 17664 , 5460 , 8840 }, { 12528 , 54124 , 54700 }};
+    uint16_t smash[10][3] = {{ 4282 , 526 , 2449 },{ 3968 , 423 , 2493 }, { 4030 , 409 , 2724 }, { 3879 , 322 , 2699 }, { 4072 , 442 , 2440 }, { 4375 , 355 , 2469 }, { 3733 , 924 , 1840 }, { 4798 , 1184 , 2067 }, { 4965 , 1535 , 2485 }, { 3522 , 15214 , 15376 }};
     
-    uint16_t lift[10][3] = {{ 13952 , 8920 , 5324 },{ 13628 , 6172 , 6180 }, { 13892 , 6148 , 4188 }, { 13896 , 10052 , 152 }, { 12368 , 11604 , 63848 }, { 9164 , 13800 , 63592 }, { 6364 , 16344 , 12 }, { 4584 , 16452 , 3096 }, { 292 , 15568 , 61828 }, { 20872 , 32756 , 3468 }};
+    uint16_t lift[10][3] = {{ 3043 , 1945 , 1161 },{ 2972 , 1346 , 1348 }, { 3030 , 1341 , 913 }, { 3031 , 2192 , 33 }, { 2697 , 2531 , 13925 }, { 1999 , 3010 , 13869 }, { 1388 , 3565 , 3 }, { 1000 , 3588 , 675 }, { 64 , 3395 , 13484 }, { 4552 , 7144 , 756 }};
     
-    uint16_t drop[10][3] = {{ 12552 , 6716 , 61900 },{ 14952 , 4252 , 65176 }, { 15828 , 4072 , 2644 }, { 16124 , 3172 , 3060 }, { 16040 , 3236 , 2384 }, { 16268 , 3516 , 1756 }, { 16208 , 3348 , 1792 }, { 16104 , 3588 , 872 }, { 15508 , 4100 , 2980 }, { 13720 , 1808 , 61108 }};
+    uint16_t drop[10][3] = {{ 3179 , 1701 , 15679 },{ 3787 , 1077 , 16509 }, { 4009 , 1031 , 670 }, { 4084 , 803 , 775 }, { 4063 , 820 , 604 }, { 4121 , 891 , 445 }, { 4106 , 848 , 454 }, { 4079 , 909 , 221 }, { 3928 , 1039 , 755 }, { 3475 , 458 , 15479 }};
     
-    uint16_t clear[10][3] = {{ 3804 , 50732 , 4232 },{ 2960 , 49052 , 4028 }, { 1496 , 48016 , 1108 }, { 64960 , 50468 , 61028 }, { 62300 , 51440 , 60964 }, { 60644 , 51512 , 61152 }, { 60348 , 51340 , 62648 }, { 58732 , 52320 , 60420 }, { 57052 , 52876 , 59932 }, { 54868 , 55376 , 62460 }};
+    uint16_t clear[10][3] = {{ 276 , 3681 , 307 },{ 215 , 3559 , 292 }, { 109 , 3484 , 80 }, { 4713 , 3662 , 4428 }, { 4520 , 3732 , 4423 }, { 4400 , 3737 , 4437 }, { 4379 , 3725 , 4545 }, { 4261 , 3796 , 4384 }, { 4139 , 3836 , 4348 }, { 3981 , 4018 , 4532 }};
     
     
     while(1)
     {
-        while(!shot_detected_flag)
+        while(!shot_detected_flag) 
         {
+            //keep updating the acceleration values roughly every 100ms whilst a shot has not yet been detected.
             update_circular_buffer();
             OSA_TimeDelay(100);
         }
         
         update_shot_buffer();
         
+        //This code prints out the waveform buffer for debugging purposes.        
+        /*
         for(int i = 0; i <10; i++)
         {
             SEGGER_RTT_printf(0, "[%d] = %d, %d, %d\n",i, waveform_buffer[i][0], waveform_buffer[i][1], waveform_buffer[i][2]);
-        }
-           
-        //perform cross correlation
+        }*/
+        
+        
+        
         float smash_score=0;
         float lift_score=0;
         float drop_score=0;
         float clear_score=0;
-        //normalisation values
-        float wave_norm = 0;
-        float smash_norm = 0;
-        float lift_norm = 0;
-        float drop_norm = 0;
-        float clear_norm = 0;
         
+        
+        
+        //This for loop calculates and then sums the cross correlations for each element of the detected shot's buffer and each of the reference waveform buffers. The value is divided by 10,000 simply to make the size of the numbers more manageable.
         for(int i = 0; i<10; i++)
         {
-            for(int j = 0; j<3; j++)
+            for(int k = 0; k<10; k++)
             {
-               smash_score += (0.01*waveform_buffer[i][j])*(0.01*smash[i][j]);
-               lift_score += (0.01*waveform_buffer[i][j])*(0.01*lift[i][j]);
-               drop_score += (0.01*waveform_buffer[i][j])*(0.01*drop[i][j]);
-               clear_score += (0.01*waveform_buffer[i][j])*(0.01*clear[i][j]);
-               
-               wave_norm = (0.01*waveform_buffer[i][j])*(0.01*waveform_buffer[i][j]);
-               lift_norm = (0.01*lift[i][j])*(0.01*lift[i][j]);
-               smash_norm = (0.01*smash[i][j])*(0.01*smash[i][j]);
-               drop_norm = (0.01*drop[i][j])*(0.01*drop[i][j]); 
-               clear_norm = (0.01*clear[i][j])*(0.01*clear[i][j]);
-               
+                for(int j = 0; j<3; j++)
+                {
+                   smash_score += (0.01*waveform_buffer[i][j])*(0.01*smash[k][j]);
+                   lift_score += (0.01*waveform_buffer[i][j])*(0.01*lift[k][j]);
+                   drop_score += (0.01*waveform_buffer[i][j])*(0.01*drop[k][j]);
+                   clear_score += (0.01*waveform_buffer[i][j])*(0.01*clear[k][j]);
+                   
+                }
             }
-            
         }
         
 
-       //find maximum score
+       //find maximum score using a basic comparison method.
+       
+       //max score first set to be equal to the smash.
        float max_score = smash_score;
        char* prediction = "smash\n\n";
        uint8_t len = 7;
+       
        SEGGER_RTT_printf(0, "s %d\n", (uint64_t)max_score);
+       
+       
+       //if the lift score is greater than the smash score, the lift score becomes the new max score. This is done until all four shots have been compared.
        if(lift_score > max_score)
        {
            max_score = lift_score;
            prediction = "lift\n\n";
            len = 6;
-           SEGGER_RTT_printf(0, "l %d\n", (uint64_t)max_score);
+           //SEGGER_RTT_printf(0, "l %d\n", (uint64_t)max_score);
        }
-
+       SEGGER_RTT_printf(0, "l %d\n", (uint64_t)lift_score);
+       
+       
        if(drop_score > max_score)
        {
            max_score = drop_score; 
            prediction = "drop\n\n";
            len = 6;
-           SEGGER_RTT_printf(0, "d %d\n", (uint64_t)max_score);
+           //SEGGER_RTT_printf(0, "d %d\n", (uint64_t)max_score);
        } 
-          
+       SEGGER_RTT_printf(0, "d %d\n", (uint64_t)drop_score);
+       
+       
        if(clear_score > max_score)
        {
            max_score = clear_score;
@@ -962,17 +961,35 @@ void badminton_shot_detector_routine()
            len = 7;
            SEGGER_RTT_printf(0, "c %d\n", (uint64_t)max_score);
        }
-          
+          SEGGER_RTT_printf(0, "c %d\n", (uint64_t)clear_score);
+       
+       
        
        //find confidence level by finding percentage of max score compared to other scores.
-       
        uint8_t confidence = 100*(max_score/(smash_score+lift_score+max_score+clear_score));
        
-       if(confidence>50)
+       //print is for debug purposes.
+       SEGGER_RTT_printf(0, prediction);
+       SEGGER_RTT_printf(0, ", %d\n", confidence);
+       
+       
+       OSA_TimeDelay(15);
+       
+       //Print out the resulting shot prediction and confidence level.
+       draw_result(prediction, len, confidence);
+       
+       
+       //Optionally: Set a confidence threshold above which you want to print out shots. This would allow for false shot detections to go unnoticed. This only works if your shots can be detected with a reasonable amount of confidence, which is currently not the case.
+       
+       /*
+       if(confidence>00)
        {   
-           SEGGER_RTT_printf(0, prediction);
-           draw_result(prediction, len, confidence);
-       }
+           //SEGGER_RTT_printf(0, prediction);
+           //draw_result(prediction, len, confidence);
+       }*/
+       
+       
+       
         //reset flag for next shot
         shot_detected_flag = false;
     
